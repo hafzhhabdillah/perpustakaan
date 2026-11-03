@@ -244,7 +244,7 @@ export default function BookManager({ onSelectBook, onNotify }) {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span className={`px-2.5 py-0.5 rounded-full font-bold text-[11px] ${
-                        b.stock > 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+                        b.stock > 0 ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'
                       }`}>
                         {b.stock}
                       </span>
