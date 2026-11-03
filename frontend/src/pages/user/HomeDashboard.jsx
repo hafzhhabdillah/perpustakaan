@@ -247,7 +247,7 @@ export default function HomeDashboard({
       </section>
 
       {/* AI ADVISOR */}
-      <section className="group relative overflow-hidden rounded-[1.75rem] bg-[#203F32] p-7 text-white shadow-lg shadow-[#203F32]/10 sm:p-10">
+      <section className="group relative overflow-hidden rounded-[1.75rem] bg-[#163B65] p-7 text-white shadow-lg shadow-[#163B65]/10 sm:p-10">
         <div className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full border border-white/10 transition-transform duration-700 group-hover:scale-125" />
         <div className="pointer-events-none absolute -right-4 -top-16 h-52 w-52 rounded-full border border-white/10" />
         <div className="pointer-events-none absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-emerald-400/10 blur-3xl" />
@@ -278,7 +278,7 @@ export default function HomeDashboard({
           <button
             type="button"
             onClick={() => onNavigate('ai-advisor')}
-            className="group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#E9E8D9] px-6 py-4 text-sm font-bold text-[#203F32] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl active:translate-y-0"
+            className="group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#E9E8D9] px-6 py-4 text-sm font-bold text-[#163B65] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl active:translate-y-0"
           >
             Explore AI Advisor
             <MoveUpRight
