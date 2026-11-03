@@ -24,14 +24,14 @@ const NAV_ADMIN = [
 function NavButton({ id, label, Icon, active, onClick, variant = 'default' }) {
   const styles = {
     default: active
-      ? 'bg-[#173F35] text-white shadow-md shadow-[#173F35]/15'
-      : 'text-neutral-500 hover:text-[#173F35] hover:bg-[#EEF3ED] dark:text-neutral-300 dark:hover:bg-neutral-700',
+      ? 'bg-[#163B65] text-white shadow-md shadow-[#163B65]/15'
+      : 'text-neutral-500 hover:text-[#163B65] hover:bg-[#EFF6FF] dark:text-neutral-300 dark:hover:bg-neutral-700',
     admin: active
-      ? 'bg-[#173F35] text-white shadow-md'
-      : 'text-neutral-500 hover:text-[#173F35] hover:bg-[#EEF3ED] dark:text-neutral-300 dark:hover:bg-neutral-700',
+      ? 'bg-[#163B65] text-white shadow-md'
+      : 'text-neutral-500 hover:text-[#163B65] hover:bg-[#EFF6FF] dark:text-neutral-300 dark:hover:bg-neutral-700',
     ai: active
-      ? 'bg-[#E9F0E7] text-[#173F35] dark:bg-neutral-600 dark:text-white'
-      : 'text-[#668C68] hover:bg-[#EEF3ED] dark:text-green-300 dark:hover:bg-neutral-700',
+      ? 'bg-[#DBEAFE] text-[#163B65] dark:bg-neutral-600 dark:text-white'
+      : 'text-[#60A5FA] hover:bg-[#EFF6FF] dark:text-green-300 dark:hover:bg-neutral-700',
   };
 
   return (
@@ -68,7 +68,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-[#E8EDE5] bg-[#FAFBF8]/95 backdrop-blur-xl dark:bg-neutral-800/95 dark:border-neutral-700">
+      <header className="sticky top-0 z-40 border-b border-[#DBEAFE] bg-[#FFFFFF]/95 backdrop-blur-xl dark:bg-neutral-800/95 dark:border-neutral-700">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-[76px] flex items-center justify-between gap-5">
 
           {/* Logo */}
@@ -77,13 +77,13 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
             onClick={() => go('home')}
             className="flex items-center gap-3 shrink-0 group"
           >
-            <div className="w-11 h-11 rounded-2xl bg-[#173F35] flex items-center justify-center shadow-lg shadow-[#173F35]/15 group-hover:rotate-[-5deg] transition-transform duration-300">
+            <div className="w-11 h-11 rounded-2xl bg-[#163B65] flex items-center justify-center shadow-lg shadow-[#163B65]/15 group-hover:rotate-[-5deg] transition-transform duration-300">
               <BookMarked className="w-5 h-5 text-[#F2EBD9]" strokeWidth={2} />
             </div>
 
             <div className="text-left">
-              <span className="block text-[21px] font-extrabold tracking-tight text-[#173F35] dark:text-white leading-none">
-                Libraria<span className="text-[#86A77D]">.</span>
+              <span className="block text-[21px] font-extrabold tracking-tight text-[#163B65] dark:text-white leading-none">
+                Libraria<span className="text-[#60A5FA]">.</span>
               </span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-neutral-400 mt-1.5">
                 {isAdmin ? 'Admin Portal' : 'Digital Library'}
@@ -116,7 +116,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
             )}
 
             {isAdmin && (
-              <div className="flex items-center gap-1 ml-3 pl-3 border-l border-[#E5EAE1] dark:border-neutral-600">
+              <div className="flex items-center gap-1 ml-3 pl-3 border-l border-[#DBEAFE] dark:border-neutral-600">
                 {NAV_ADMIN.map(({ id, label, Icon }) => (
                   <NavButton
                     key={id}
@@ -139,7 +139,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               onClick={toggleTheme}
               title={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
               aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-[#E5EAE1] bg-white px-3 text-xs font-bold text-[#315C46] transition-all hover:bg-[#EEF3ED] dark:border-neutral-600 dark:bg-neutral-700 dark:text-amber-300 dark:hover:bg-neutral-600"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-[#DBEAFE] bg-white px-3 text-xs font-bold text-[#2563EB] transition-all hover:bg-[#EFF6FF] dark:border-neutral-600 dark:bg-neutral-700 dark:text-amber-300 dark:hover:bg-neutral-600"
             >
               {theme === 'dark' ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
               <span className="hidden sm:inline">{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>
@@ -150,9 +150,9 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
                 <button
                   type="button"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-2xl border border-[#E6EBE2] hover:border-[#A9BBA2] bg-white dark:bg-neutral-700 dark:border-neutral-600 transition-all"
+                  className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-2xl border border-[#DBEAFE] hover:border-[#A9BBA2] bg-white dark:bg-neutral-700 dark:border-neutral-600 transition-all"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-[#173F35] text-white flex items-center justify-center font-bold text-sm uppercase">
+                  <div className="w-8 h-8 rounded-xl bg-[#163B65] text-white flex items-center justify-center font-bold text-sm uppercase">
                     {user?.name?.charAt(0) || 'U'}
                   </div>
 
@@ -164,15 +164,15 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white dark:bg-neutral-700 border border-[#E8EDE5] dark:border-neutral-600 shadow-2xl shadow-black/10 overflow-hidden z-50 animate-fade-in">
-                    <div className="p-4 bg-[#F5F7F1] dark:bg-neutral-800">
-                      <p className="font-bold text-[#173F35] dark:text-white truncate">
+                  <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white dark:bg-neutral-700 border border-[#DBEAFE] dark:border-neutral-600 shadow-2xl shadow-black/10 overflow-hidden z-50 animate-fade-in">
+                    <div className="p-4 bg-[#EFF6FF] dark:bg-neutral-800">
+                      <p className="font-bold text-[#163B65] dark:text-white truncate">
                         {user?.name}
                       </p>
                       <p className="text-xs text-neutral-400 mt-1 truncate">
                         {user?.email}
                       </p>
-                      <div className="flex items-center gap-1.5 mt-3 text-[#668C68]">
+                      <div className="flex items-center gap-1.5 mt-3 text-[#60A5FA]">
                         <ShieldCheck className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-bold uppercase tracking-widest">
                           {user?.role}
@@ -195,7 +195,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               <button
                 type="button"
                 onClick={() => onOpenAuth('login')}
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#173F35] hover:bg-[#245647] text-white text-[13px] font-bold shadow-md shadow-[#173F35]/15 transition-all hover:-translate-y-0.5"
+                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#163B65] hover:bg-[#245647] text-white text-[13px] font-bold shadow-md shadow-[#163B65]/15 transition-all hover:-translate-y-0.5"
               >
                 <LogIn className="w-4 h-4" />
                 Masuk
@@ -210,7 +210,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               onClick={() => setMobileOpen((open) => !open)}
               aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
               aria-expanded={mobileOpen}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#E5EAE1] text-[#315C46] transition hover:bg-[#EEF3ED] dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700 lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#DBEAFE] text-[#2563EB] transition hover:bg-[#EFF6FF] dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700 lg:hidden"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -227,7 +227,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
 
           <nav
-            className="relative bg-[#FAFBF8] dark:bg-neutral-800 border-r border-[#E8EDE5] dark:border-neutral-700 h-full w-80 max-w-[88vw] p-5 overflow-y-auto shadow-2xl animate-slide-left"
+            className="relative bg-[#FFFFFF] dark:bg-neutral-800 border-r border-[#DBEAFE] dark:border-neutral-700 h-full w-80 max-w-[88vw] p-5 overflow-y-auto shadow-2xl animate-slide-left"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-5">
@@ -261,7 +261,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
 
             {isAdmin && (
               <>
-                <div className="border-t border-[#E8EDE5] dark:border-neutral-600 my-5" />
+                <div className="border-t border-[#DBEAFE] dark:border-neutral-600 my-5" />
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 px-3 mb-3">
                   Administrator
                 </p>
@@ -282,7 +282,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               </>
             )}
 
-            <div className="border-t border-[#E8EDE5] dark:border-neutral-600 my-5" />
+            <div className="border-t border-[#DBEAFE] dark:border-neutral-600 my-5" />
 
             {!isAuthenticated ? (
               <button
@@ -291,7 +291,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
                   onOpenAuth('login');
                   setMobileOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#173F35] text-white font-bold text-sm"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#163B65] text-white font-bold text-sm"
               >
                 <LogIn className="w-4 h-4" />
                 Masuk / Daftar
