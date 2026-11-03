@@ -7,7 +7,7 @@ Monorepo yang terdiri dari **backend Laravel** dan **frontend React + Vite**.
 ## 📁 Struktur Folder
 
 ```
-frontend_perpus/
+perpustakaan/
 ├── backend/          ← Laravel 11 API (PHP)
 │   ├── app/
 │   ├── routes/api.php
