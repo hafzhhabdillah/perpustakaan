@@ -13,11 +13,11 @@ export default function BookCard({
   const outOfStock = Number(book.stock ?? 0) <= 0;
 
   return (
-    <article className="group relative flex flex-col bg-white dark:bg-neutral-700 rounded-[22px] border border-[#EAEDE6] dark:border-neutral-600 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#173F35]/10 hover:border-[#B8CBB1]">
+    <article className="group relative flex flex-col bg-white dark:bg-neutral-700 rounded-[22px] border border-[#DBEAFE] dark:border-neutral-600 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#163B65]/10 hover:border-[#B8CBB1]">
 
       {/* Book cover */}
       <div
-        className="relative aspect-[3/4] overflow-hidden bg-[#F0F2EA] dark:bg-neutral-600 cursor-pointer"
+        className="relative aspect-[3/4] overflow-hidden bg-[#EFF6FF] dark:bg-neutral-600 cursor-pointer"
         onClick={() => onSelect(book)}
       >
         <img
@@ -32,11 +32,11 @@ export default function BookCard({
         />
 
         {/* Image overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#102E27]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#102B4A]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Detail button */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[#173F35] text-xs font-bold shadow-lg">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[#163B65] text-xs font-bold shadow-lg">
             <BookOpen className="w-3.5 h-3.5" />
             Lihat Detail
           </span>
@@ -47,7 +47,7 @@ export default function BookCard({
           <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-bold backdrop-blur-md shadow-sm ${
             outOfStock
               ? 'bg-red-500/90 text-white'
-              : 'bg-[#173F35]/90 text-white'
+              : 'bg-[#163B65]/90 text-white'
           }`}>
             {outOfStock ? 'Stok Habis' : `Tersedia · ${book.stock}`}
           </span>
@@ -80,13 +80,13 @@ export default function BookCard({
         onClick={() => onSelect(book)}
       >
         <div className="flex items-center gap-1.5 mb-2.5">
-          <Tag className="w-3.5 h-3.5 text-[#789B70] shrink-0" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#789B70] truncate">
+          <Tag className="w-3.5 h-3.5 text-[#60A5FA] shrink-0" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#60A5FA] truncate">
             {book.category?.name || 'Umum'}
           </span>
         </div>
 
-        <h4 className="font-heading font-bold text-[15px] leading-snug text-[#173F35] dark:text-white line-clamp-2 min-h-[42px] group-hover:text-[#668C68] transition-colors">
+        <h4 className="font-heading font-bold text-[15px] leading-snug text-[#163B65] dark:text-white line-clamp-2 min-h-[42px] group-hover:text-[#60A5FA] transition-colors">
           {book.title}
         </h4>
 
@@ -100,12 +100,12 @@ export default function BookCard({
           </p>
         )}
 
-        <div className="mt-auto pt-4 flex items-center justify-between border-t border-[#EDF0EA] dark:border-neutral-600 mt-4">
+        <div className="mt-auto pt-4 flex items-center justify-between border-t border-[#EFF6FF] dark:border-neutral-600 mt-4">
           <span className="text-[10px] text-neutral-400 font-mono truncate max-w-[120px]">
             {book.isbn ? `ISBN ${book.isbn}` : 'ISBN —'}
           </span>
 
-          <span className="flex items-center gap-1 text-xs font-bold text-[#668C68] group-hover:text-[#173F35] dark:text-green-300 transition-colors">
+          <span className="flex items-center gap-1 text-xs font-bold text-[#60A5FA] group-hover:text-[#163B65] dark:text-green-300 transition-colors">
             Detail
             <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
