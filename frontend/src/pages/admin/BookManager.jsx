@@ -160,19 +160,19 @@ export default function BookManager({ onSelectBook, onNotify }) {
   return (
     <div className="space-y-6 pb-16">
       {/* Top Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-neutral-800 p-6 rounded-3xl border border-neutral-200/80 dark:border-neutral-700 shadow-xs">
         <div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <BookCopy className="w-6 h-6 text-brand-600" /> Kelola Koleksi Buku
+          <h2 className="text-2xl font-black text-neutral-900 dark:text-neutral-50 tracking-tight flex items-center gap-2">
+            <BookCopy className="w-6 h-6 text-primary-600" /> Kelola Koleksi Buku
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
             Tambah, edit, dan hapus katalog buku fisik perpustakaan ({totalBooks} buku)
           </p>
         </div>
 
         <button
           onClick={handleOpenAdd}
-          className="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-brand-200 transition flex items-center gap-2 self-start sm:self-auto"
+          className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-primary-200 transition flex items-center gap-2 self-start sm:self-auto"
         >
           <PlusCircle className="w-4 h-4" /> Tambah Buku Baru
         </button>
@@ -180,7 +180,7 @@ export default function BookManager({ onSelectBook, onNotify }) {
 
       {/* Search Input */}
       <div className="relative max-w-md">
-        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+        <Search className="w-4 h-4 text-neutral-400 dark:text-neutral-500 absolute left-3.5 top-3.5" />
         <input
           type="text"
           placeholder="Cari buku berdasarkan judul, penulis, ISBN..."
@@ -189,15 +189,15 @@ export default function BookManager({ onSelectBook, onNotify }) {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition"
+          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-sm bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
         />
       </div>
 
       {/* Table of Books */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200/80 dark:border-neutral-700 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            <thead className="bg-primary-50 dark:bg-neutral-700 border-b border-neutral-200/80 dark:border-neutral-700 text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
               <tr>
                 <th className="py-3.5 px-4">Buku</th>
                 <th className="py-3.5 px-4">Kategori</th>
@@ -207,39 +207,39 @@ export default function BookManager({ onSelectBook, onNotify }) {
                 <th className="py-3.5 px-4 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-400">
+                  <td colSpan={6} className="py-8 text-center text-neutral-400 dark:text-neutral-500">
                     Memuat data buku...
                   </td>
                 </tr>
               ) : books.length > 0 ? (
                 books.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-50/80 transition">
+                  <tr key={b.id} className="hover:bg-primary-50 dark:bg-neutral-700/80 transition">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={b.cover_image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=100&q=80'}
                           alt={b.title}
-                          className="w-9 h-12 rounded object-cover border border-slate-200 flex-shrink-0"
+                          className="w-9 h-12 rounded object-cover border border-neutral-200 dark:border-neutral-700 flex-shrink-0"
                         />
                         <div>
-                          <p className="font-bold text-slate-900 line-clamp-1">{b.title}</p>
-                          <p className="text-xs text-slate-500">{b.author}</p>
+                          <p className="font-bold text-neutral-900 dark:text-neutral-50 line-clamp-1">{b.title}</p>
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400">{b.author}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="px-2.5 py-1 rounded-full bg-slate-100 font-semibold text-[11px] text-slate-700">
+                      <span className="px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-neutral-700 font-semibold text-[11px] text-neutral-700 dark:text-neutral-200">
                         {b.category?.name || 'Umum'}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-600">
+                    <td className="py-3 px-4 text-neutral-600 dark:text-neutral-300">
                       <p>{b.published_year || '-'}</p>
-                      <p className="text-[11px] text-slate-400 line-clamp-1">{b.publisher || '-'}</p>
+                      <p className="text-[11px] text-neutral-400 dark:text-neutral-500 line-clamp-1">{b.publisher || '-'}</p>
                     </td>
-                    <td className="py-3 px-4 font-mono text-[11px] text-slate-600">
+                    <td className="py-3 px-4 font-mono text-[11px] text-neutral-600 dark:text-neutral-300">
                       {b.isbn || '-'}
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -254,21 +254,21 @@ export default function BookManager({ onSelectBook, onNotify }) {
                         <button
                           onClick={() => onSelectBook(b)}
                           title="Lihat Detail"
-                          className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition"
+                          className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-primary-600 hover:bg-neutral-100 dark:bg-neutral-700 rounded-lg transition"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleOpenEdit(b)}
                           title="Edit Buku"
-                          className="p-1.5 text-slate-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition"
+                          className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleOpenDelete(b)}
                           title="Hapus Buku"
-                          className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                          className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -278,7 +278,7 @@ export default function BookManager({ onSelectBook, onNotify }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-400">
+                  <td colSpan={6} className="py-8 text-center text-neutral-400 dark:text-neutral-500">
                     Belum ada buku yang cocok.
                   </td>
                 </tr>
@@ -289,20 +289,20 @@ export default function BookManager({ onSelectBook, onNotify }) {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="p-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <div className="p-4 border-t border-neutral-100 dark:border-neutral-700 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
             <span>Halaman {page} dari {totalPages}</span>
             <div className="flex gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(p - 1, 1))}
                 disabled={page === 1}
-                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-40"
+                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-primary-50 dark:bg-neutral-700 disabled:opacity-40"
               >
                 Sebelumnya
               </button>
               <button
                 onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                 disabled={page === totalPages}
-                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-40"
+                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-primary-50 dark:bg-neutral-700 disabled:opacity-40"
               >
                 Selanjutnya
               </button>
@@ -314,49 +314,49 @@ export default function BookManager({ onSelectBook, onNotify }) {
       {/* CREATE / EDIT MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-neutral-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-100 dark:border-neutral-700 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 rounded-xl"
+              className="absolute top-5 right-5 p-2 text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:text-neutral-200 rounded-xl"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-6">
               {editingBook ? 'Edit Data Buku' : 'Tambah Buku Baru ke Perpustakaan'}
             </h3>
 
             <form onSubmit={handleSubmitForm} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Judul Buku *</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Judul Buku *</label>
                   <input
                     type="text"
                     required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Penulis *</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Penulis *</label>
                   <input
                     type="text"
                     required
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Kategori Buku *</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Kategori Buku *</label>
                   <select
                     required
                     value={formData.category_id}
                     onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-neutral-800"
                   >
                     <option value="">Pilih Kategori</option>
                     {categories.map((c) => (
@@ -368,68 +368,68 @@ export default function BookManager({ onSelectBook, onNotify }) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Penerbit</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Penerbit</label>
                   <input
                     type="text"
                     value={formData.publisher}
                     onChange={(e) => setFormData({ ...formData, publisher: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Tahun Terbit</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Tahun Terbit</label>
                     <input
                       type="number"
                       value={formData.published_year}
                       onChange={(e) => setFormData({ ...formData, published_year: e.target.value })}
-                      className="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                      className="w-full text-sm px-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Stok Fisik *</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Stok Fisik *</label>
                     <input
                       type="number"
                       required
                       min={0}
                       value={formData.stock}
                       onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                      className="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                      className="w-full text-sm px-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">ISBN (Unik)</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">ISBN (Unik)</label>
                   <input
                     type="text"
                     value={formData.isbn}
                     placeholder="Contoh: 9780132350884"
                     onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500 font-mono"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">URL Cover Buku</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">URL Cover Buku</label>
                   <input
                     type="url"
                     value={formData.cover_image}
                     placeholder="https://images.unsplash.com/..."
                     onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Deskripsi / Sinopsis</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Deskripsi / Sinopsis</label>
                   <textarea
                     rows={4}
                     value={formData.description}
                     placeholder="Sinopsis singkat tentang buku ini..."
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full text-sm p-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full text-sm p-3.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
               </div>
@@ -438,14 +438,14 @@ export default function BookManager({ onSelectBook, onNotify }) {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-5 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                  className="px-5 py-2.5 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:bg-neutral-700 rounded-xl"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={formSubmitting}
-                  className="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2"
+                  className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2"
                 >
                   {formSubmitting && <span className="animate-spin">⏳</span>}
                   {editingBook ? 'Simpan Perubahan' : 'Tambahkan Buku'}
