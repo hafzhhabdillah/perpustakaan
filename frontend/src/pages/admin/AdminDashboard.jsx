@@ -15,7 +15,7 @@ const statItems = [
 
 const toneClasses = {
   green: 'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200',
-  sage: 'bg-[#E8EEE3] text-[#55734D] dark:bg-[#344333] dark:text-[#C5D6B8]',
+  sage: 'bg-[#E8EEE3] text-[#163B65] dark:bg-[#1E293B] dark:text-[#BFDBFE]',
   blue: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
   rose: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
   amber: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
@@ -45,12 +45,12 @@ export default function AdminDashboard({ onNavigate, onSelectBook }) {
 
   return (
     <div className="space-y-7 pb-12">
-      <section className="relative overflow-hidden rounded-[2rem] bg-[#173F35] px-6 py-8 text-white shadow-xl shadow-primary-900/10 sm:px-9 sm:py-10">
+      <section className="relative overflow-hidden rounded-[2rem] bg-[#163B65] px-6 py-8 text-white shadow-xl shadow-primary-900/10 sm:px-9 sm:py-10">
         <div className="pointer-events-none absolute -right-12 -top-24 h-72 w-72 rounded-full border-[36px] border-white/[0.06]" />
-        <div className="pointer-events-none absolute -bottom-28 right-44 h-64 w-64 rounded-full bg-[#A6B98B]/10 blur-2xl" />
+        <div className="pointer-events-none absolute -bottom-28 right-44 h-64 w-64 rounded-full bg-[#93C5FD]/10 blur-2xl" />
         <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-[#DCE8D3]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-[#DBEAFE]">
               <Sparkles className="h-3.5 w-3.5" /> LIBRARIA ADMINISTRATION
             </span>
             <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Dashboard Perpustakaan</h1>
@@ -59,7 +59,7 @@ export default function AdminDashboard({ onNavigate, onSelectBook }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => onNavigate('admin-books')} className="inline-flex items-center gap-2 rounded-xl bg-[#E7EEDD] px-4 py-3 text-sm font-bold text-[#173F35] shadow-lg transition hover:-translate-y-0.5 hover:bg-white">
+            <button onClick={() => onNavigate('admin-books')} className="inline-flex items-center gap-2 rounded-xl bg-[#DBEAFE] px-4 py-3 text-sm font-bold text-[#163B65] shadow-lg transition hover:-translate-y-0.5 hover:bg-white">
               <PlusCircle className="h-4 w-4" /> Tambah Buku
             </button>
             <button onClick={() => onNavigate('admin-open-library')} className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
