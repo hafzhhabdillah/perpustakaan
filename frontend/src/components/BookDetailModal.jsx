@@ -6,10 +6,10 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
   const cover = book.cover_image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-neutral-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div className="p-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-600">
             <Layers className="w-4 h-4" />
             <span>{book.category?.name || 'Katalog Buku'}</span>
@@ -17,7 +17,7 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-xl transition"
+            className="p-2 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-200/60 rounded-xl transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -27,7 +27,7 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
         <div className="p-6 overflow-y-auto flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Cover & Quick Actions */}
           <div className="flex flex-col items-center">
-            <div className="aspect-[3/4] w-full max-w-[220px] rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
+            <div className="aspect-[3/4] w-full max-w-[220px] rounded-2xl overflow-hidden shadow-lg border border-neutral-200 bg-neutral-100">
               <img
                 src={cover}
                 alt={book.title}
@@ -44,7 +44,7 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
               className={`w-full mt-4 py-2.5 px-4 rounded-xl font-semibold text-xs transition flex items-center justify-center gap-2 shadow-sm ${
                 book.is_favorited
                   ? 'bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100'
-                  : 'bg-slate-900 text-white hover:bg-slate-800'
+                  : 'bg-neutral-900 text-white hover:bg-neutral-800'
               }`}
             >
               <Heart className={`w-4 h-4 ${book.is_favorited ? 'fill-rose-600 text-rose-600' : ''}`} />
@@ -63,7 +63,7 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
           {/* Details Content */}
           <div className="md:col-span-2 space-y-4">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 leading-tight">
                 {book.title}
               </h2>
               <p className="text-sm font-medium text-brand-600 mt-1">
@@ -72,46 +72,46 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
             </div>
 
             {/* Meta Grid */}
-            <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600">
+            <div className="grid grid-cols-2 gap-3 p-4 bg-neutral-50 rounded-2xl border border-neutral-100 text-xs text-neutral-600">
               <div className="flex items-center gap-2">
-                <Building className="w-4 h-4 text-slate-400" />
+                <Building className="w-4 h-4 text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Penerbit</p>
-                  <p className="font-medium text-slate-800">{book.publisher || '-'}</p>
+                  <p className="text-[10px] text-neutral-400 uppercase font-semibold">Penerbit</p>
+                  <p className="font-medium text-neutral-800">{book.publisher || '-'}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-slate-400" />
+                <Calendar className="w-4 h-4 text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Tahun Terbit</p>
-                  <p className="font-medium text-slate-800">{book.published_year || '-'}</p>
+                  <p className="text-[10px] text-neutral-400 uppercase font-semibold">Tahun Terbit</p>
+                  <p className="font-medium text-neutral-800">{book.published_year || '-'}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Hash className="w-4 h-4 text-slate-400" />
+                <Hash className="w-4 h-4 text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">ISBN</p>
-                  <p className="font-mono font-medium text-slate-800">{book.isbn || '-'}</p>
+                  <p className="text-[10px] text-neutral-400 uppercase font-semibold">ISBN</p>
+                  <p className="font-mono font-medium text-neutral-800">{book.isbn || '-'}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <BookCheck className="w-4 h-4 text-slate-400" />
+                <BookCheck className="w-4 h-4 text-neutral-400" />
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Kategori</p>
-                  <p className="font-medium text-slate-800">{book.category?.name || '-'}</p>
+                  <p className="text-[10px] text-neutral-400 uppercase font-semibold">Kategori</p>
+                  <p className="font-medium text-neutral-800">{book.category?.name || '-'}</p>
                 </div>
               </div>
             </div>
 
             {/* Description */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5">
                 Sinopsis & Deskripsi
               </h4>
-              <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line bg-white p-3.5 rounded-xl border border-slate-100">
+              <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line bg-white p-3.5 rounded-xl border border-neutral-100">
                 {book.description || 'Tidak ada deskripsi detail untuk buku ini.'}
               </p>
             </div>
@@ -119,10 +119,10 @@ export default function BookDetailModal({ book, isOpen, onClose, onToggleFavorit
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex justify-end">
+        <div className="p-4 border-t border-neutral-100 bg-neutral-50/50 flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 rounded-xl transition"
+            className="px-5 py-2 text-sm font-semibold text-neutral-700 bg-white border border-neutral-200 hover:bg-neutral-100 rounded-xl transition"
           >
             Tutup
           </button>
