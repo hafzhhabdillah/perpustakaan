@@ -1,45 +1,56 @@
-
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 @import "tailwindcss";
 
-/* Tailwind CSS v4: make dark: utilities follow the .dark class toggle. */
+/* Dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Libraria color system */
 @theme {
-  --color-primary-50: #F7F6F2;
-  --color-primary-100: #E6EFEA;
-  --color-primary-500: #23856D;
-  --color-primary-600: #1E724F;
-  --color-primary-700: #18593D;
-  --color-primary-900: #172B3A;
+  /* Primary - Forest Green */
+  --color-primary-50: #F5F7F1;
+  --color-primary-100: #E8EEE3;
+  --color-primary-200: #D1DDC9;
+  --color-primary-300: #A9BE9F;
+  --color-primary-400: #789B70;
+  --color-primary-500: #315C46;
+  --color-primary-600: #274C3A;
+  --color-primary-700: #203F32;
+  --color-primary-800: #1B352B;
+  --color-primary-900: #173F35;
 
-  --color-neutral-50: #F4F5F2;
-  --color-neutral-100: #E8E9E5;
-  --color-neutral-200: #C5C8C6;
-  --color-neutral-300: #A1ADB2;
-  --color-neutral-400: #858D91;
-  --color-neutral-500: #202B32;
-  --color-neutral-600: #111A20;
-  --color-neutral-700: #1B272F;
+  /* Neutral */
+  --color-neutral-50: #FAFBF8;
+  --color-neutral-100: #F0F1EC;
+  --color-neutral-200: #E3E6DE;
+  --color-neutral-300: #C5CBC0;
+  --color-neutral-400: #929B91;
+  --color-neutral-500: #657064;
+  --color-neutral-600: #414B43;
+  --color-neutral-700: #29332C;
+  --color-neutral-800: #1C261F;
+  --color-neutral-900: #121A15;
 
-  --color-accent-500: #56B99A;
-
-  --font-heading: "Plus Jakarta Sans", "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* Accent */
+  --color-accent-500: #A6B98B;
 
   /* Brand aliases */
-  --color-brand-50: #F7F6F2;
-  --color-brand-100: #E6EFEA;
-  --color-brand-300: #8CCDB5;
-  --color-brand-400: #56B99A;
-  --color-brand-500: #23856D;
-  --color-brand-600: #1E724F;
-  --color-brand-700: #18593D;
+  --color-brand-50: #F5F7F1;
+  --color-brand-100: #E8EEE3;
+  --color-brand-300: #A9BE9F;
+  --color-brand-400: #789B70;
+  --color-brand-500: #315C46;
+  --color-brand-600: #274C3A;
+  --color-brand-700: #203F32;
+
+  /* Typography */
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-sans: "Inter", sans-serif;
 }
 
-
-/* Shared application polish */
+/* Global styles */
 :root {
   color-scheme: light;
   font-synthesis: none;
@@ -49,23 +60,78 @@
   scroll-behavior: smooth;
 }
 
-:root.dark { color-scheme: dark; }
-
-html, body, #root { min-height: 100%; }
-body { margin: 0; font-family: var(--font-body); }
-button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
-button { cursor: pointer; }
-button:disabled { cursor: not-allowed; }
-::selection { background: rgb(35 133 109 / 22%); }
-:focus-visible { outline: 2px solid #23856D; outline-offset: 3px; }
-
-* { scrollbar-width: thin; scrollbar-color: #9bb9ad transparent; }
-*::-webkit-scrollbar { width: 9px; height: 9px; }
-*::-webkit-scrollbar-thumb { background: #9bb9ad; border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
-.dark * { scrollbar-color: #42665b transparent; }
-.dark *::-webkit-scrollbar-thumb { background: #42665b; background-clip: padding-box; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .animate-fade-in { animation: libraria-fade-in .22s ease-out both; }
-  @keyframes libraria-fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+:root.dark {
+  color-scheme: dark;
 }
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: rgb(49 92 70 / 22%);
+}
+
+:focus-visible {
+  outline: 2px solid #315C46;
+  outline-offset: 3px;
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #A9BE9F transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #A9BE9F;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.dark * {
+  scrollbar-color: #42665B transparent;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: #42665B;
+  background-clip: padding-box;
+}
+
+/* Animations */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in {
+    animation: libraria-fade-in .22s ease-out both;
+  }
+
+  @keyframes libraria-fade-in {
+    from
