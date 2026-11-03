@@ -143,14 +143,14 @@ export default function UserManager({ onNotify }) {
                   <tr key={u.id} className="hover:bg-primary-50 dark:bg-neutral-700/80 transition">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">
+                        <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold text-xs">
                           {u.name.charAt(0)}
                         </div>
                         <div>
                           <p className="font-bold text-neutral-900 dark:text-neutral-50 flex items-center gap-2">
                             {u.name}
                             {isSelf && (
-                              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-slate-200 text-neutral-700 dark:text-neutral-200">
+                              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-700 dark:text-neutral-200">
                                 Anda
                               </span>
                             )}
@@ -163,7 +163,7 @@ export default function UserManager({ onNotify }) {
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold ${
                           u.role === 'admin'
-                            ? 'bg-purple-100 text-purple-700'
+                            ? 'bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-200'
                             : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200'
                         }`}
                       >
