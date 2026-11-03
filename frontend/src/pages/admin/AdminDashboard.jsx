@@ -1,203 +1,147 @@
 import { useState, useEffect } from 'react';
 import { dashboardService } from '../../services/api';
 import {
-  BookCopy,
-  Layers,
-  Users,
-  Heart,
-  Boxes,
-  PlusCircle,
-  Globe,
-  ArrowRight,
-  TrendingUp,
+  BookCopy, Layers, Users, Heart, Boxes, PlusCircle, Globe,
+  ArrowRight, TrendingUp, Library, Sparkles,
 } from 'lucide-react';
+
+const statItems = [
+  { key: 'total_books', label: 'Total Buku', icon: BookCopy, tone: 'green' },
+  { key: 'total_categories', label: 'Kategori', icon: Layers, tone: 'sage' },
+  { key: 'total_users', label: 'Pengguna', icon: Users, tone: 'blue' },
+  { key: 'total_favorites', label: 'Favorit', icon: Heart, tone: 'rose' },
+  { key: 'total_stock', label: 'Stok Fisik', icon: Boxes, tone: 'amber' },
+];
+
+const toneClasses = {
+  green: 'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200',
+  sage: 'bg-[#E8EEE3] text-[#55734D] dark:bg-[#344333] dark:text-[#C5D6B8]',
+  blue: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
+  rose: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
+  amber: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+};
 
 export default function AdminDashboard({ onNavigate, onSelectBook }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadStats();
-  }, []);
-
-  const loadStats = async () => {
-    try {
-      const res = await dashboardService.getAdminStats();
-      if (res.data?.success) {
-        setStats(res.data.data);
+    let mounted = true;
+    const loadStats = async () => {
+      try {
+        const res = await dashboardService.getAdminStats();
+        if (mounted && res.data?.success) setStats(res.data.data);
+      } catch (err) {
+        console.error('Failed to load admin dashboard stats', err);
+      } finally {
+        if (mounted) setLoading(false);
       }
-    } catch (err) {
-      console.error('Failed to load admin dashboard stats', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+    loadStats();
+    return () => { mounted = false; };
+  }, []);
 
   const counts = stats?.counts || {};
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Dashboard Manajemen Perpustakaan
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Ringkasan data, statistik koleksi, dan aktivitas operasional perpustakaan
-          </p>
-        </div>
-
-        {/* Quick Action Shortcuts */}
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => onNavigate('admin-books')}
-            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
-          >
-            <PlusCircle className="w-4 h-4" /> Tambah Buku
-          </button>
-          <button
-            onClick={() => onNavigate('admin-open-library')}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
-          >
-            <Globe className="w-4 h-4" /> Cari Open Library
-          </button>
-        </div>
-      </div>
-
-      {/* 1. METRICS STATS CARDS */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-2">
-          <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
-            <BookCopy className="w-5 h-5" />
+    <div className="space-y-7 pb-12">
+      <section className="relative overflow-hidden rounded-[2rem] bg-[#173F35] px-6 py-8 text-white shadow-xl shadow-primary-900/10 sm:px-9 sm:py-10">
+        <div className="pointer-events-none absolute -right-12 -top-24 h-72 w-72 rounded-full border-[36px] border-white/[0.06]" />
+        <div className="pointer-events-none absolute -bottom-28 right-44 h-64 w-64 rounded-full bg-[#A6B98B]/10 blur-2xl" />
+        <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-[#DCE8D3]">
+              <Sparkles className="h-3.5 w-3.5" /> LIBRARIA ADMINISTRATION
+            </span>
+            <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Dashboard Perpustakaan</h1>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-white/70">
+              Pantau koleksi, kategori, pengguna, dan aktivitas perpustakaan dari satu tempat.
+            </p>
           </div>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Buku</p>
-            <h3 className="text-2xl font-black text-slate-900">{counts.total_books ?? 0}</h3>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-2">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-            <Layers className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Kategori</p>
-            <h3 className="text-2xl font-black text-slate-900">{counts.total_categories ?? 0}</h3>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-2">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <Users className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Pengguna</p>
-            <h3 className="text-2xl font-black text-slate-900">{counts.total_users ?? 0}</h3>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-2">
-          <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
-            <Heart className="w-5 h-5 fill-rose-600" />
-          </div>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Buku Terfavorit</p>
-            <h3 className="text-2xl font-black text-slate-900">{counts.total_favorites ?? 0}</h3>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-2 col-span-2 sm:col-span-1">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
-            <Boxes className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Stok Fisik</p>
-            <h3 className="text-2xl font-black text-slate-900">{counts.total_stock ?? 0}</h3>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. CATEGORY BREAKDOWN & RECENT BOOKS */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Category Breakdown */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-brand-600" /> Distribusi Kategori
-            </h3>
-            <button
-              onClick={() => onNavigate('admin-categories')}
-              className="text-xs font-bold text-brand-600 hover:text-brand-700"
-            >
-              Kelola →
+          <div className="flex flex-wrap gap-2">
+            <button onClick={() => onNavigate('admin-books')} className="inline-flex items-center gap-2 rounded-xl bg-[#E7EEDD] px-4 py-3 text-sm font-bold text-[#173F35] shadow-lg transition hover:-translate-y-0.5 hover:bg-white">
+              <PlusCircle className="h-4 w-4" /> Tambah Buku
+            </button>
+            <button onClick={() => onNavigate('admin-open-library')} className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
+              <Globe className="h-4 w-4" /> Open Library
             </button>
           </div>
+        </div>
+      </section>
 
-          <div className="space-y-3 pt-2">
-            {stats?.category_breakdown?.map((cat) => (
-              <div key={cat.id} className="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-slate-800">{cat.name}</h4>
-                  <p className="text-[10px] text-slate-400 font-mono">/{cat.slug}</p>
-                </div>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100 text-brand-700">
-                  {cat.books_count} buku
+      <section>
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-600 dark:text-primary-300">Overview</p>
+            <h2 className="mt-1 text-xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50">Ringkasan Perpustakaan</h2>
+          </div>
+          <span className="hidden rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 sm:inline-flex">
+            Data terbaru
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
+          {statItems.map(({ key, label, icon: Icon, tone }) => (
+            <article key={key} className="group rounded-2xl border border-neutral-200/80 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-800 sm:p-5">
+              <div className="flex items-start justify-between gap-2">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${toneClasses[tone]}`}>
+                  <Icon className="h-5 w-5" />
                 </span>
+                <span className="mt-1 h-2 w-2 rounded-full bg-primary-400 opacity-70" />
               </div>
-            ))}
-          </div>
+              <p className="mt-5 text-xs font-semibold text-neutral-500 dark:text-neutral-400">{label}</p>
+              <p className="mt-1 text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50">
+                {loading ? <span className="inline-block h-8 w-14 animate-pulse rounded-lg bg-neutral-100 dark:bg-neutral-700" /> : (counts[key] ?? 0).toLocaleString('id-ID')}
+              </p>
+            </article>
+          ))}
         </div>
+      </section>
 
-        {/* Recent Books Added */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <BookCopy className="w-4 h-4 text-brand-600" /> Buku Baru Ditambahkan
-            </h3>
-            <button
-              onClick={() => onNavigate('admin-books')}
-              className="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1"
-            >
-              Semua Koleksi <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-5">
+        <article className="rounded-3xl border border-neutral-200/80 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800 xl:col-span-2 sm:p-6">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary-600 dark:text-primary-300">Koleksi</p>
+              <h3 className="mt-1 text-lg font-extrabold text-neutral-900 dark:text-neutral-50">Distribusi Kategori</h3>
+            </div>
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600 dark:bg-primary-900/40 dark:text-primary-200"><TrendingUp className="h-5 w-5" /></span>
           </div>
-
-          <div className="divide-y divide-slate-100">
-            {stats?.recent_books?.map((b) => (
-              <div key={b.id} className="py-3 flex items-center justify-between gap-4 group">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-14 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200">
-                    <img
-                      src={b.cover_image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=100&q=80'}
-                      alt={b.title}
-                      className="w-full h-full object-cover"
-                    />
+          <div className="mt-5 space-y-3">
+            {loading ? <p className="py-8 text-center text-sm text-neutral-400">Memuat kategori...</p> :
+              stats?.category_breakdown?.length ? stats.category_breakdown.map((cat, index) => {
+                const total = Math.max(...stats.category_breakdown.map(item => Number(item.books_count) || 0), 1);
+                const percent = Math.round(((Number(cat.books_count) || 0) / total) * 100);
+                return (
+                  <div key={cat.id} className="rounded-2xl bg-primary-50/70 p-3.5 dark:bg-neutral-700/60">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="min-w-0"><p className="truncate text-sm font-bold text-neutral-800 dark:text-neutral-100">{cat.name}</p><p className="mt-0.5 text-[11px] text-neutral-500 dark:text-neutral-400">/{cat.slug}</p></div>
+                      <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-primary-700 dark:bg-neutral-800 dark:text-primary-200">{cat.books_count} buku</span>
+                    </div>
+                    <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-primary-100 dark:bg-neutral-600"><div className="h-full rounded-full bg-primary-500" style={{ width: `${percent}%` }} /></div>
                   </div>
-                  <div>
-                    <h4
-                      onClick={() => onSelectBook(b)}
-                      className="text-sm font-bold text-slate-900 line-clamp-1 hover:text-brand-600 cursor-pointer transition"
-                    >
-                      {b.title}
-                    </h4>
-                    <p className="text-xs text-slate-500">
-                      {b.author} • <span className="text-brand-600 font-medium">{b.category?.name}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="text-right flex-shrink-0">
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    Stok: {b.stock}
-                  </span>
-                </div>
-              </div>
-            ))}
+                );
+              }) : <div className="rounded-2xl border border-dashed border-neutral-200 py-10 text-center dark:border-neutral-700"><Layers className="mx-auto h-7 w-7 text-neutral-300" /><p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Belum ada data kategori.</p></div>}
           </div>
-        </div>
-      </div>
+          <button onClick={() => onNavigate('admin-categories')} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary-700 transition hover:gap-3 dark:text-primary-300">Kelola kategori <ArrowRight className="h-4 w-4" /></button>
+        </article>
+
+        <article className="rounded-3xl border border-neutral-200/80 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800 xl:col-span-3 sm:p-6">
+          <div className="flex items-center justify-between gap-3">
+            <div><p className="text-xs font-bold uppercase tracking-[0.14em] text-primary-600 dark:text-primary-300">Aktivitas koleksi</p><h3 className="mt-1 text-lg font-extrabold text-neutral-900 dark:text-neutral-50">Buku Terbaru</h3></div>
+            <button onClick={() => onNavigate('admin-books')} className="inline-flex items-center gap-1 text-xs font-bold text-primary-700 hover:text-primary-900 dark:text-primary-300">Lihat semua <ArrowRight className="h-3.5 w-3.5" /></button>
+          </div>
+          <div className="mt-4 divide-y divide-neutral-100 dark:divide-neutral-700">
+            {loading ? <p className="py-10 text-center text-sm text-neutral-400">Memuat buku...</p> :
+              stats?.recent_books?.length ? stats.recent_books.map(book => (
+                <button key={book.id} onClick={() => onSelectBook(book)} className="flex w-full items-center gap-3 rounded-xl py-3 text-left transition hover:bg-primary-50/70 dark:hover:bg-neutral-700/50 sm:px-2">
+                  <img src={book.cover_image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=100&q=80'} alt={book.title} className="h-14 w-10 shrink-0 rounded-lg border border-neutral-200 object-cover dark:border-neutral-600" />
+                  <span className="min-w-0 flex-1"><span className="block truncate text-sm font-bold text-neutral-900 dark:text-neutral-100">{book.title}</span><span className="mt-1 block truncate text-xs text-neutral-500 dark:text-neutral-400">{book.author} <span className="text-primary-600 dark:text-primary-300">· {book.category?.name || 'Umum'}</span></span></span>
+                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ${book.stock > 0 ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200' : 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'}`}>Stok {book.stock}</span>
+                </button>
+              )) : <div className="py-12 text-center"><Library className="mx-auto h-8 w-8 text-neutral-300" /><p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Belum ada buku yang ditambahkan.</p></div>}
+          </div>
+        </article>
+      </section>
     </div>
   );
 }
-
