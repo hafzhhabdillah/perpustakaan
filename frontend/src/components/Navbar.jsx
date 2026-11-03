@@ -4,39 +4,42 @@ import { useTheme } from '../context/ThemeContext';
 import {
   BookMarked, Sparkles, Heart, LayoutDashboard, BookCopy,
   Layers, Globe, Users, LogOut, LogIn, Menu, X,
-  ShieldCheck, Home, Sun, Moon, ChevronDown,
+  ShieldCheck, Home, Sun, Moon, ChevronDown, Library,
 } from 'lucide-react';
 
 const NAV_USER = [
-  { id: 'home',       label: 'Beranda',   Icon: Home },
-  { id: 'catalog',    label: 'Katalog',   Icon: BookCopy },
+  { id: 'home', label: 'Beranda', Icon: Home },
+  { id: 'catalog', label: 'Katalog', Icon: BookCopy },
   { id: 'ai-advisor', label: 'AI Advisor', Icon: Sparkles },
 ];
 
 const NAV_ADMIN = [
-  { id: 'admin-dashboard',    label: 'Dashboard',    Icon: LayoutDashboard },
-  { id: 'admin-books',        label: 'Buku',         Icon: BookCopy },
-  { id: 'admin-categories',   label: 'Kategori',     Icon: Layers },
+  { id: 'admin-dashboard', label: 'Dashboard', Icon: LayoutDashboard },
+  { id: 'admin-books', label: 'Buku', Icon: BookCopy },
+  { id: 'admin-categories', label: 'Kategori', Icon: Layers },
   { id: 'admin-open-library', label: 'Open Library', Icon: Globe },
-  { id: 'admin-users',        label: 'Users',        Icon: Users },
+  { id: 'admin-users', label: 'Users', Icon: Users },
 ];
 
 function NavButton({ id, label, Icon, active, onClick, variant = 'default' }) {
-  const base = 'flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200';
   const styles = {
     default: active
-      ? 'bg-primary-500 text-white shadow-sm shadow-primary-500/30'
-      : 'text-neutral-400 hover:text-neutral-500 hover:bg-primary-50 dark:text-neutral-300 dark:hover:bg-neutral-700',
+      ? 'bg-[#173F35] text-white shadow-md shadow-[#173F35]/15'
+      : 'text-neutral-500 hover:text-[#173F35] hover:bg-[#EEF3ED] dark:text-neutral-300 dark:hover:bg-neutral-700',
     admin: active
-      ? 'bg-primary-900 text-white shadow-sm'
-      : 'text-neutral-400 hover:text-primary-900 hover:bg-primary-100 dark:text-neutral-300 dark:hover:bg-neutral-700',
+      ? 'bg-[#173F35] text-white shadow-md'
+      : 'text-neutral-500 hover:text-[#173F35] hover:bg-[#EEF3ED] dark:text-neutral-300 dark:hover:bg-neutral-700',
     ai: active
-      ? 'bg-gradient-to-r from-violet-500 to-primary-500 text-white shadow-sm'
-      : 'text-violet-500 hover:bg-violet-50 dark:hover:bg-neutral-700',
+      ? 'bg-[#E9F0E7] text-[#173F35] dark:bg-neutral-600 dark:text-white'
+      : 'text-[#668C68] hover:bg-[#EEF3ED] dark:text-green-300 dark:hover:bg-neutral-700',
   };
 
   return (
-    <button onClick={() => onClick(id)} className={`${base} ${styles[variant]}`}>
+    <button
+      type="button"
+      onClick={() => onClick(id)}
+      className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-[13px] font-semibold whitespace-nowrap transition-all duration-200 ${styles[variant]}`}
+    >
       <Icon className="w-4 h-4" />
       {label}
     </button>
@@ -46,36 +49,50 @@ function NavButton({ id, label, Icon, active, onClick, variant = 'default' }) {
 export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const go = (tab) => { setActiveTab(tab); setMobileOpen(false); setDropdownOpen(false); };
+  const go = (tab) => {
+    setActiveTab(tab);
+    setMobileOpen(false);
+    setDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    setDropdownOpen(false);
+    setMobileOpen(false);
+    logout();
+    go('home');
+  };
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/90 dark:bg-neutral-700/90 backdrop-blur-lg border-b border-neutral-100 dark:border-neutral-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 border-b border-[#E8EDE5] bg-[#FAFBF8]/95 backdrop-blur-xl dark:bg-neutral-800/95 dark:border-neutral-700">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-[76px] flex items-center justify-between gap-5">
 
-          {/* ── Logo ── */}
+          {/* Logo */}
           <button
+            type="button"
             onClick={() => go('home')}
-            className="flex items-center gap-2.5 shrink-0 group"
+            className="flex items-center gap-3 shrink-0 group"
           >
-            <div className="w-9 h-9 rounded-xl bg-primary-500 flex items-center justify-center shadow-md shadow-primary-500/20 group-hover:scale-105 transition duration-200">
-              <BookMarked className="w-4.5 h-4.5 text-white" strokeWidth={2.5} />
+            <div className="w-11 h-11 rounded-2xl bg-[#173F35] flex items-center justify-center shadow-lg shadow-[#173F35]/15 group-hover:rotate-[-5deg] transition-transform duration-300">
+              <BookMarked className="w-5 h-5 text-[#F2EBD9]" strokeWidth={2} />
             </div>
-            <div className="hidden sm:block">
-              <span className="font-heading font-bold text-lg leading-none text-primary-900 dark:text-white tracking-tight">
-                Libraria
+
+            <div className="text-left">
+              <span className="block text-[21px] font-extrabold tracking-tight text-[#173F35] dark:text-white leading-none">
+                Libraria<span className="text-[#86A77D]">.</span>
               </span>
-              <p className="text-[10px] text-neutral-300 dark:text-neutral-300 font-medium mt-0.5 leading-none">
+              <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-neutral-400 mt-1.5">
                 {isAdmin ? 'Admin Portal' : 'Digital Library'}
-              </p>
+              </span>
             </div>
           </button>
 
-          {/* ── Desktop Nav ── */}
-          <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
+          {/* Desktop navigation */}
+          <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center overflow-x-auto">
             {NAV_USER.map(({ id, label, Icon }) => (
               <NavButton
                 key={id}
@@ -99,149 +116,192 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
             )}
 
             {isAdmin && (
-              <div className="flex items-center gap-1 ml-3 pl-3 border-l border-neutral-100 dark:border-neutral-600">
+              <div className="flex items-center gap-1 ml-3 pl-3 border-l border-[#E5EAE1] dark:border-neutral-600">
                 {NAV_ADMIN.map(({ id, label, Icon }) => (
-                  <NavButton key={id} id={id} label={label} Icon={Icon} active={activeTab === id} onClick={go} variant="admin" />
+                  <NavButton
+                    key={id}
+                    id={id}
+                    label={label}
+                    Icon={Icon}
+                    active={activeTab === id}
+                    onClick={go}
+                    variant="admin"
+                  />
                 ))}
               </div>
             )}
           </nav>
 
-          {/* ── Right Actions ── */}
+          {/* Right actions */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Theme Toggle */}
             <button
+              type="button"
               onClick={toggleTheme}
-              className="p-2 rounded-xl text-neutral-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-neutral-600 transition duration-200"
               aria-label="Toggle theme"
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-neutral-500 hover:bg-[#EEF3ED] hover:text-[#173F35] dark:text-neutral-300 dark:hover:bg-neutral-700 transition-all"
             >
-              {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
+              {theme === 'dark'
+                ? <Sun className="w-[18px] h-[18px]" />
+                : <Moon className="w-[18px] h-[18px]" />}
             </button>
 
             {isAuthenticated ? (
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 py-1.5 pl-1.5 pr-3 rounded-xl border border-neutral-100 dark:border-neutral-600 hover:border-primary-200 dark:hover:border-neutral-500 transition duration-200 group"
+                  className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-2xl border border-[#E6EBE2] hover:border-[#A9BBA2] bg-white dark:bg-neutral-700 dark:border-neutral-600 transition-all"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-primary-500 text-white flex items-center justify-center font-bold text-sm uppercase shadow-sm">
+                  <div className="w-8 h-8 rounded-xl bg-[#173F35] text-white flex items-center justify-center font-bold text-sm uppercase">
                     {user?.name?.charAt(0) || 'U'}
                   </div>
-                  <span className="text-sm font-semibold text-neutral-500 dark:text-neutral-50 hidden md:block max-w-[100px] truncate">
+
+                  <span className="hidden md:block text-[13px] font-semibold text-neutral-700 dark:text-neutral-100 max-w-[100px] truncate">
                     {user?.name}
                   </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-neutral-400 hidden md:block" />
+
+                  <ChevronDown className={`hidden md:block w-4 h-4 text-neutral-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-60 bg-white dark:bg-neutral-700 rounded-2xl shadow-xl border border-neutral-100 dark:border-neutral-600 py-2 z-50 animate-fade-in">
-                    <div className="px-4 py-3 border-b border-neutral-100 dark:border-neutral-600">
-                      <p className="text-sm font-bold text-primary-900 dark:text-white truncate">{user?.name}</p>
-                      <p className="text-xs text-neutral-400 truncate mt-0.5">{user?.email}</p>
-                      <div className="mt-2 flex items-center gap-1.5">
-                        <ShieldCheck className="w-3 h-3 text-primary-500" />
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary-500">
+                  <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white dark:bg-neutral-700 border border-[#E8EDE5] dark:border-neutral-600 shadow-2xl shadow-black/10 overflow-hidden z-50 animate-fade-in">
+                    <div className="p-4 bg-[#F5F7F1] dark:bg-neutral-800">
+                      <p className="font-bold text-[#173F35] dark:text-white truncate">
+                        {user?.name}
+                      </p>
+                      <p className="text-xs text-neutral-400 mt-1 truncate">
+                        {user?.email}
+                      </p>
+                      <div className="flex items-center gap-1.5 mt-3 text-[#668C68]">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">
                           {user?.role}
                         </span>
                       </div>
                     </div>
+
                     <button
-                      onClick={() => { setDropdownOpen(false); logout(); go('home'); }}
-                      className="w-full text-left px-4 py-2.5 text-sm font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 transition"
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2.5 px-4 py-3 text-sm font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                     >
-                      <LogOut className="w-4 h-4" /> Keluar
+                      <LogOut className="w-4 h-4" />
+                      Keluar dari akun
                     </button>
                   </div>
                 )}
               </div>
             ) : (
               <button
+                type="button"
                 onClick={() => onOpenAuth('login')}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold shadow-sm shadow-primary-500/20 transition duration-200"
+                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#173F35] hover:bg-[#245647] text-white text-[13px] font-bold shadow-md shadow-[#173F35]/15 transition-all hover:-translate-y-0.5"
               >
-                <LogIn className="w-4 h-4" /> Masuk
+                <LogIn className="w-4 h-4" />
+                Masuk
               </button>
             )}
 
-            {/* Mobile menu button */}
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 rounded-xl text-neutral-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-neutral-600 transition"
+              aria-label="Toggle menu"
+              className="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 hover:bg-[#EEF3ED] dark:text-white dark:hover:bg-neutral-700 transition"
             >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen
+                ? <X className="w-5 h-5" />
+                : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* ── Mobile Drawer ── */}
+      {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-30 pt-16" onClick={() => setMobileOpen(false)}>
+        <div
+          className="lg:hidden fixed inset-0 z-30 pt-[76px]"
+          onClick={() => setMobileOpen(false)}
+        >
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+
           <nav
-            className="relative bg-white dark:bg-neutral-700 border-r border-neutral-100 dark:border-neutral-600 h-full w-72 max-w-[85vw] p-4 space-y-1 overflow-y-auto animate-slide-left shadow-2xl"
+            className="relative bg-[#FAFBF8] dark:bg-neutral-800 border-r border-[#E8EDE5] dark:border-neutral-700 h-full w-80 max-w-[88vw] p-5 overflow-y-auto shadow-2xl animate-slide-left"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-300 px-3 mb-3">Menu</p>
-            {NAV_USER.map(({ id, label, Icon }) => (
-              <button
-                key={id}
-                onClick={() => go(id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                  activeTab === id
-                    ? 'bg-primary-500 text-white'
-                    : 'text-neutral-500 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-neutral-600'
-                }`}
-              >
-                <Icon className="w-4 h-4" /> {label}
-              </button>
-            ))}
-            {isAuthenticated && (
-              <button
-                onClick={() => go('favorites')}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                  activeTab === 'favorites'
-                    ? 'bg-primary-500 text-white'
-                    : 'text-neutral-500 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-neutral-600'
-                }`}
-              >
-                <Heart className="w-4 h-4" /> Favorit
-              </button>
-            )}
+            <div className="mb-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 px-3">
+                Menu Utama
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              {NAV_USER.map(({ id, label, Icon }) => (
+                <NavButton
+                  key={id}
+                  id={id}
+                  label={label}
+                  Icon={Icon}
+                  active={activeTab === id}
+                  onClick={go}
+                />
+              ))}
+
+              {isAuthenticated && (
+                <NavButton
+                  id="favorites"
+                  label="Favorit"
+                  Icon={Heart}
+                  active={activeTab === 'favorites'}
+                  onClick={go}
+                />
+              )}
+            </div>
+
             {isAdmin && (
               <>
-                <hr className="border-neutral-100 dark:border-neutral-600 my-2" />
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-300 px-3 mb-2">Admin</p>
-                {NAV_ADMIN.map(({ id, label, Icon }) => (
-                  <button
-                    key={id}
-                    onClick={() => go(id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                      activeTab === id
-                        ? 'bg-primary-900 text-white'
-                        : 'text-neutral-500 dark:text-neutral-200 hover:bg-primary-100 dark:hover:bg-neutral-600'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" /> {label}
-                  </button>
-                ))}
+                <div className="border-t border-[#E8EDE5] dark:border-neutral-600 my-5" />
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 px-3 mb-3">
+                  Administrator
+                </p>
+
+                <div className="space-y-1">
+                  {NAV_ADMIN.map(({ id, label, Icon }) => (
+                    <NavButton
+                      key={id}
+                      id={id}
+                      label={label}
+                      Icon={Icon}
+                      active={activeTab === id}
+                      onClick={go}
+                      variant="admin"
+                    />
+                  ))}
+                </div>
               </>
             )}
 
-            <hr className="border-neutral-100 dark:border-neutral-600 my-2" />
+            <div className="border-t border-[#E8EDE5] dark:border-neutral-600 my-5" />
+
             {!isAuthenticated ? (
               <button
-                onClick={() => { onOpenAuth('login'); setMobileOpen(false); }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-primary-500 text-white"
+                type="button"
+                onClick={() => {
+                  onOpenAuth('login');
+                  setMobileOpen(false);
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#173F35] text-white font-bold text-sm"
               >
-                <LogIn className="w-4 h-4" /> Masuk / Daftar
+                <LogIn className="w-4 h-4" />
+                Masuk / Daftar
               </button>
             ) : (
               <button
-                onClick={() => { logout(); go('home'); }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition"
+                type="button"
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-3 py-3 rounded-xl text-red-500 font-semibold text-sm hover:bg-red-50 dark:hover:bg-red-900/20"
               >
-                <LogOut className="w-4 h-4" /> Keluar
+                <LogOut className="w-4 h-4" />
+                Keluar
               </button>
             )}
           </nav>
