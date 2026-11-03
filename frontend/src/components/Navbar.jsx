@@ -142,7 +142,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-[#E5EAE1] bg-white px-3 text-xs font-bold text-[#315C46] transition-all hover:bg-[#EEF3ED] dark:border-neutral-600 dark:bg-neutral-700 dark:text-amber-300 dark:hover:bg-neutral-600"
             >
               {theme === 'dark' ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
-              <span className="hidden xl:inline">{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>
+              <span className="hidden sm:inline">{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>
             </button>
 
             {isAuthenticated ? (
