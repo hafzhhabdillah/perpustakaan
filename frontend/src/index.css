@@ -72,7 +72,20 @@ body,
 
 body {
   margin: 0;
+  min-width: 320px;
+  background: #F5F7F1;
+  color: #29332C;
   font-family: var(--font-body);
+  transition: background-color .25s ease, color .25s ease;
+}
+
+.dark body {
+  background: #121A15;
+  color: #F0F1EC;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
 }
 
 button,
