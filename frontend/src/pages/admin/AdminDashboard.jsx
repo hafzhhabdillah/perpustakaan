@@ -15,7 +15,7 @@ const statItems = [
 
 const toneClasses = {
   green: 'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200',
-  sage: 'bg-[#E8EEE3] text-[#163B65] dark:bg-[#1E293B] dark:text-[#BFDBFE]',
+  sage: 'bg-[#DBEAFE] text-[#163B65] dark:bg-[#1E293B] dark:text-[#BFDBFE]',
   blue: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
   rose: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
   amber: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
