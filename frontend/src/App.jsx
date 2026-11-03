@@ -122,7 +122,7 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-50 dark:bg-neutral-600 flex flex-col">
+    <div className="min-h-screen bg-primary-50 text-neutral-800 transition-colors duration-300 dark:bg-neutral-900 dark:text-neutral-100 flex flex-col">
       <Navbar
         activeTab={activeTab}
         setActiveTab={handleSetActiveTab}
