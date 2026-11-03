@@ -21,6 +21,54 @@ import UserManager from './pages/admin/UserManager';
 
 import { favoriteService } from './services/api';
 
+
+import { useState } from "react";
+import LibraryLayout from "./components/LibraryLayout";
+
+// Ganti import ini dengan halaman yang SUDAH ada di proyekmu.
+import Dashboard from "./pages/Dashboard";
+
+export default function App() {
+  const [activePage, setActivePage] = useState("dashboard");
+
+  // Sementara contoh user. Nantinya ambil dari AuthContext.
+  const user = {
+    name: "Admin Libraria",
+    role: "Admin",
+  };
+
+  function renderPage() {
+    switch (activePage) {
+      case "dashboard":
+        return <Dashboard />;
+
+      default:
+        return (
+          <div className="rounded-2xl bg-white p-8 dark:bg-[#1B302C]">
+            <h1 className="text-xl font-bold">Halaman {activePage}</h1>
+            <p className="mt-2 text-sm text-slate-500">
+              Hubungkan halaman ini dengan komponen yang sudah tersedia.
+            </p>
+          </div>
+        );
+    }
+  }
+
+  return (
+    <LibraryLayout
+      activePage={activePage}
+      onNavigate={setActivePage}
+      user={user}
+      onLogout={() => {
+        // Hubungkan ke fungsi logout dari AuthContext milikmu.
+      }}
+    >
+      {renderPage()}
+    </LibraryLayout>
+  );
+}
+
+
 function MainApp() {
   const { isAuthenticated, isAdmin } = useAuth();
 
