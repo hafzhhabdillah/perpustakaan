@@ -101,29 +101,29 @@ export default function CategoryManager({ onNotify }) {
   return (
     <div className="space-y-6 pb-16 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-neutral-800 p-6 rounded-3xl border border-neutral-200/80 dark:border-neutral-700 shadow-xs">
         <div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <Layers className="w-6 h-6 text-brand-600" /> Manajemen Kategori
+          <h2 className="text-2xl font-black text-neutral-900 dark:text-neutral-50 tracking-tight flex items-center gap-2">
+            <Layers className="w-6 h-6 text-primary-600" /> Manajemen Kategori
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
             Kelola kategori untuk klasifikasi buku di perpustakaan ({categories.length} kategori)
           </p>
         </div>
 
         <button
           onClick={handleOpenAdd}
-          className="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-brand-200 transition flex items-center gap-2"
+          className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-primary-200 transition flex items-center gap-2"
         >
           <PlusCircle className="w-4 h-4" /> Tambah Kategori
         </button>
       </div>
 
       {/* Categories Table */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200/80 dark:border-neutral-700 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            <thead className="bg-primary-50 dark:bg-neutral-700 border-b border-neutral-200/80 dark:border-neutral-700 text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
               <tr>
                 <th className="py-3.5 px-6">Nama Kategori</th>
                 <th className="py-3.5 px-6">Slug</th>
@@ -132,20 +132,20 @@ export default function CategoryManager({ onNotify }) {
                 <th className="py-3.5 px-6 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-400">
+                  <td colSpan={5} className="py-8 text-center text-neutral-400 dark:text-neutral-500">
                     Memuat kategori...
                   </td>
                 </tr>
               ) : categories.map((cat) => (
-                <tr key={cat.id} className="hover:bg-slate-50/80 transition">
-                  <td className="py-4 px-6 font-bold text-slate-900">{cat.name}</td>
-                  <td className="py-4 px-6 font-mono text-xs text-slate-500">/{cat.slug}</td>
-                  <td className="py-4 px-6 text-slate-600 max-w-xs truncate">{cat.description || '-'}</td>
+                <tr key={cat.id} className="hover:bg-primary-50 dark:bg-neutral-700/80 transition">
+                  <td className="py-4 px-6 font-bold text-neutral-900 dark:text-neutral-50">{cat.name}</td>
+                  <td className="py-4 px-6 font-mono text-xs text-neutral-500 dark:text-neutral-400">/{cat.slug}</td>
+                  <td className="py-4 px-6 text-neutral-600 dark:text-neutral-300 max-w-xs truncate">{cat.description || '-'}</td>
                   <td className="py-4 px-6 text-center">
-                    <span className="px-3 py-1 rounded-full font-bold text-xs bg-brand-50 text-brand-700">
+                    <span className="px-3 py-1 rounded-full font-bold text-xs bg-primary-50 text-primary-700">
                       {cat.books_count} buku
                     </span>
                   </td>
@@ -153,13 +153,13 @@ export default function CategoryManager({ onNotify }) {
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => handleOpenEdit(cat)}
-                        className="p-1.5 text-slate-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition"
+                        className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleOpenDelete(cat)}
-                        className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                        className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -175,39 +175,39 @@ export default function CategoryManager({ onNotify }) {
       {/* CREATE / EDIT MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+          <div className="bg-white dark:bg-neutral-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-neutral-100 dark:border-neutral-700 relative">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 rounded-xl"
+              className="absolute top-5 right-5 p-2 text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:text-neutral-200 rounded-xl"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-6">
               {editingCategory ? 'Edit Kategori' : 'Tambah Kategori Baru'}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Nama Kategori *</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Nama Kategori *</label>
                 <input
                   type="text"
                   required
                   placeholder="Contoh: Kecerdasan Buatan"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Deskripsi Singkat</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 mb-1">Deskripsi Singkat</label>
                 <textarea
                   rows={3}
                   placeholder="Penjelasan ringkas tentang cakupan kategori ini..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full text-sm p-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full text-sm p-3.5 rounded-xl border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
@@ -215,14 +215,14 @@ export default function CategoryManager({ onNotify }) {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-5 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                  className="px-5 py-2.5 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:bg-neutral-700 rounded-xl"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2"
+                  className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2"
                 >
                   {submitting && <span className="animate-spin">⏳</span>}
                   Simpan
