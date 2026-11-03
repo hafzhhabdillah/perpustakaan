@@ -137,12 +137,12 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-neutral-500 hover:bg-[#EEF3ED] hover:text-[#173F35] dark:text-neutral-300 dark:hover:bg-neutral-700 transition-all"
+              title={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+              aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-[#E5EAE1] bg-white px-3 text-xs font-bold text-[#315C46] transition-all hover:bg-[#EEF3ED] dark:border-neutral-600 dark:bg-neutral-700 dark:text-amber-300 dark:hover:bg-neutral-600"
             >
-              {theme === 'dark'
-                ? <Sun className="w-[18px] h-[18px]" />
-                : <Moon className="w-[18px] h-[18px]" />}
+              {theme === 'dark' ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
+              <span className="hidden xl:inline">{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>
             </button>
 
             {isAuthenticated ? (
@@ -205,6 +205,15 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
 
             
 
+            <button
+              type="button"
+              onClick={() => setMobileOpen((open) => !open)}
+              aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+              aria-expanded={mobileOpen}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#E5EAE1] text-[#315C46] transition hover:bg-[#EEF3ED] dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700 lg:hidden"
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
         </div>
       </header>
