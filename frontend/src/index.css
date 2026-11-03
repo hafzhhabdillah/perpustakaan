@@ -3,6 +3,9 @@
 
 @import "tailwindcss";
 
+/* Tailwind CSS v4: make dark: utilities follow the .dark class toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary-50: #F7F6F2;
   --color-primary-100: #E6EFEA;
@@ -33,4 +36,36 @@
   --color-brand-500: #23856D;
   --color-brand-600: #1E724F;
   --color-brand-700: #18593D;
+}
+
+
+/* Shared application polish */
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+:root.dark { color-scheme: dark; }
+
+html, body, #root { min-height: 100%; }
+body { margin: 0; font-family: var(--font-body); }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+::selection { background: rgb(35 133 109 / 22%); }
+:focus-visible { outline: 2px solid #23856D; outline-offset: 3px; }
+
+* { scrollbar-width: thin; scrollbar-color: #9bb9ad transparent; }
+*::-webkit-scrollbar { width: 9px; height: 9px; }
+*::-webkit-scrollbar-thumb { background: #9bb9ad; border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+.dark * { scrollbar-color: #42665b transparent; }
+.dark *::-webkit-scrollbar-thumb { background: #42665b; background-clip: padding-box; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in { animation: libraria-fade-in .22s ease-out both; }
+  @keyframes libraria-fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 }
