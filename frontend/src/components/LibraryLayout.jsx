@@ -63,7 +63,7 @@ export default function LibraryLayout({
 
   return (
     <div className={dark ? "dark" : ""}>
-      <div className="min-h-screen bg-[#F7F8F6] text-slate-800 transition-colors dark:bg-[#101B1A] dark:text-slate-100">
+      <div className="min-h-screen bg-[#F7F8F6] text-neutral-800 transition-colors dark:bg-[#101B1A] dark:text-neutral-100">
 
         {/* Mobile overlay */}
         {sidebarOpen && (
@@ -75,8 +75,8 @@ export default function LibraryLayout({
 
         {/* Sidebar */}
         <aside
-          className={`fixed inset-y-0 left-0 z-50 flex w-[270px] flex-col bg-[#173B35] text-white transition-transform duration-300 lg:translate-x-0 ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          className={`fixed inset-y-0 left-0 z-50 flex w-[270px] flex-col bg-[#173B35] text-white transition-transform duration-300 lg:tranneutral-x-0 ${
+            sidebarOpen ? "tranneutral-x-0" : "-tranneutral-x-full"
           }`}
         >
           {/* Brand */}
@@ -184,17 +184,17 @@ export default function LibraryLayout({
         <main className="min-h-screen lg:ml-[270px]">
 
           {/* Navbar */}
-          <header className="sticky top-0 z-30 flex h-[84px] items-center justify-between border-b border-slate-200/70 bg-white/85 px-5 backdrop-blur-xl dark:border-white/10 dark:bg-[#142321]/90 md:px-9">
+          <header className="sticky top-0 z-30 flex h-[84px] items-center justify-between border-b border-neutral-200/70 bg-white/85 px-5 backdrop-blur-xl dark:border-white/10 dark:bg-[#142321]/90 md:px-9">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="rounded-xl p-2 hover:bg-slate-100 dark:hover:bg-white/10 lg:hidden"
+                className="rounded-xl p-2 hover:bg-neutral-100 dark:hover:bg-white/10 lg:hidden"
               >
                 <Menu size={22} />
               </button>
 
               <div>
-                <p className="text-xs text-slate-400">Pages / Libraria</p>
+                <p className="text-xs text-neutral-400">Pages / Libraria</p>
                 <h2 className="mt-1 text-lg font-bold capitalize">
                   {activePage.replace("-", " ")}
                 </h2>
@@ -202,28 +202,28 @@ export default function LibraryLayout({
             </div>
 
             <div className="flex items-center gap-2 md:gap-4">
-              <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-[#F8FAF8] px-3 py-2.5 md:flex dark:border-white/10 dark:bg-white/5">
-                <Search size={17} className="text-slate-400" />
+              <div className="hidden items-center gap-2 rounded-xl border border-neutral-200 bg-[#F8FAF8] px-3 py-2.5 md:flex dark:border-white/10 dark:bg-white/5">
+                <Search size={17} className="text-neutral-400" />
                 <input
                   type="text"
                   placeholder="Cari sesuatu..."
-                  className="w-36 bg-transparent text-sm outline-none placeholder:text-slate-400"
+                  className="w-36 bg-transparent text-sm outline-none placeholder:text-neutral-400"
                 />
-                <kbd className="rounded border border-slate-200 px-1.5 py-0.5 text-[10px] text-slate-400 dark:border-white/10">
+                <kbd className="rounded border border-neutral-200 px-1.5 py-0.5 text-[10px] text-neutral-400 dark:border-white/10">
                   /
                 </kbd>
               </div>
 
               <button
                 onClick={toggleTheme}
-                className="rounded-xl border border-slate-200 p-2.5 transition hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/10"
+                className="rounded-xl border border-neutral-200 p-2.5 transition hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-white/10"
                 title="Ganti tema"
               >
                 {dark ? <Sun size={18} /> : <Moon size={18} />}
               </button>
 
               <button
-                className="relative rounded-xl border border-slate-200 p-2.5 transition hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/10"
+                className="relative rounded-xl border border-neutral-200 p-2.5 transition hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-white/10"
                 title="Notifikasi"
               >
                 <Bell size={18} />
