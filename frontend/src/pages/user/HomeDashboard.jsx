@@ -101,27 +101,27 @@ export default function HomeDashboard({
     <div className="animate-fade-in space-y-16 pb-12">
 
       {/* HERO */}
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#F0F0E8] dark:bg-[#1B3029]">
-        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#C9DCCB]/70 blur-3xl dark:bg-emerald-900/30" />
-        <div className="pointer-events-none absolute -bottom-40 left-1/4 h-96 w-96 rounded-full bg-[#E5D8BD]/60 blur-3xl dark:bg-emerald-950/30" />
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#EFF6FF] dark:bg-[#163B65]">
+        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#DBEAFE]/70 blur-3xl dark:bg-blue-900/30" />
+        <div className="pointer-events-none absolute -bottom-40 left-1/4 h-96 w-96 rounded-full bg-[#E5D8BD]/60 blur-3xl dark:bg-blue-950/30" />
 
         <div className="relative grid min-h-[470px] items-center gap-8 px-7 py-12 sm:px-12 lg:grid-cols-[1.1fr_0.9fr] lg:px-16 lg:py-14">
 
           <div className="relative z-10 max-w-2xl">
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary-600/15 bg-white/70 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-primary-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-emerald-200">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary-600/15 bg-white/70 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-primary-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-blue-200">
               <Sparkles size={14} />
               A space for curious minds
             </div>
 
-            <h1 className="font-heading text-[2.8rem] font-extrabold leading-[1.08] tracking-[-0.055em] text-[#23372E] dark:text-[#F0F5ED] sm:text-6xl lg:text-[4.5rem]">
+            <h1 className="font-heading text-[2.8rem] font-extrabold leading-[1.08] tracking-[-0.055em] text-[#102B4A] dark:text-[#EFF6FF] sm:text-6xl lg:text-[4.5rem]">
               Dunia luas,
-              <span className="mt-1 block font-medium italic text-primary-600 dark:text-[#A5D5B9]">
+              <span className="mt-1 block font-medium italic text-primary-600 dark:text-[#93C5FD]">
                 dimulai dari
               </span>
               satu halaman.
             </h1>
 
-            <p className="mt-6 max-w-lg text-sm leading-7 text-[#64736A] dark:text-neutral-300 sm:text-base">
+            <p className="mt-6 max-w-lg text-sm leading-7 text-[#64748B] dark:text-neutral-300 sm:text-base">
               Temukan cerita baru, perluas wawasan, dan jelajahi
               koleksi bacaan pilihan yang siap menemani setiap
               perjalanan pengetahuanmu.
@@ -154,7 +154,7 @@ export default function HomeDashboard({
               </button>
             </form>
 
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-[#718077] dark:text-neutral-300">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-[#64748B] dark:text-neutral-300">
               <span className="flex items-center gap-2">
                 <ShieldCheck size={15} className="text-primary-600 dark:text-accent-500" />
                 Koleksi terkurasi
@@ -175,11 +175,11 @@ export default function HomeDashboard({
             <div className="absolute h-[340px] w-[340px] rounded-full border border-primary-700/10" />
             <div className="absolute h-[270px] w-[270px] rounded-full border border-primary-700/10" />
 
-            <div className="absolute right-5 top-8 rotate-[10deg] text-[10px] font-bold uppercase tracking-[0.35em] text-primary-700/50 dark:text-emerald-200/50">
+            <div className="absolute right-5 top-8 rotate-[10deg] text-[10px] font-bold uppercase tracking-[0.35em] text-primary-700/50 dark:text-blue-200/50">
               Read · Discover · Grow
             </div>
 
-            <div className="relative z-10 flex h-[290px] w-[205px] -rotate-[8deg] flex-col justify-between rounded-r-xl rounded-l-sm border-l-[9px] border-[#193D30] bg-[#275B45] p-7 text-[#F2F0E4] shadow-2xl shadow-[#183B2C]/30 transition duration-700 hover:-rotate-3 hover:scale-105">
+            <div className="relative z-10 flex h-[290px] w-[205px] -rotate-[8deg] flex-col justify-between rounded-r-xl rounded-l-sm border-l-[9px] border-[#163B65] bg-[#2563EB] p-7 text-[#FFFFFF] shadow-2xl shadow-[#102B4A]/30 transition duration-700 hover:-rotate-3 hover:scale-105">
               <div>
                 <BookOpen size={32} strokeWidth={1.4} className="mb-12 text-[#D7CBA8]" />
                 <p className="text-[9px] font-semibold uppercase tracking-[0.35em] text-[#D7CBA8]">
@@ -228,7 +228,7 @@ export default function HomeDashboard({
             </div>
 
             <div className="absolute -bottom-1 right-0 z-30 flex items-center gap-3 rounded-2xl border border-white/70 bg-white/90 p-3.5 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-neutral-700">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E7EFE8] text-primary-600 dark:bg-emerald-900/50 dark:text-emerald-200">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#EFF6FF] text-primary-600 dark:bg-blue-900/50 dark:text-blue-200">
                 <Bookmark size={21} />
               </div>
               <div>
@@ -250,7 +250,7 @@ export default function HomeDashboard({
       <section className="group relative overflow-hidden rounded-[1.75rem] bg-[#163B65] p-7 text-white shadow-lg shadow-[#163B65]/10 sm:p-10">
         <div className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full border border-white/10 transition-transform duration-700 group-hover:scale-125" />
         <div className="pointer-events-none absolute -right-4 -top-16 h-52 w-52 rounded-full border border-white/10" />
-        <div className="pointer-events-none absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-emerald-400/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-blue-400/10 blur-3xl" />
 
         <div className="relative flex flex-col justify-between gap-7 md:flex-row md:items-center">
           <div className="max-w-xl">
@@ -269,7 +269,7 @@ export default function HomeDashboard({
               untuk rasa ingin tahu yang hebat.
             </h2>
 
-            <p className="mt-3 max-w-lg text-sm leading-7 text-emerald-100/70">
+            <p className="mt-3 max-w-lg text-sm leading-7 text-blue-100/70">
               Ceritakan minatmu kepada Libraria AI. Temukan rekomendasi
               bacaan yang sesuai dengan hal-hal yang ingin kamu pelajari.
             </p>
@@ -278,7 +278,7 @@ export default function HomeDashboard({
           <button
             type="button"
             onClick={() => onNavigate('ai-advisor')}
-            className="group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#E9E8D9] px-6 py-4 text-sm font-bold text-[#163B65] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl active:translate-y-0"
+            className="group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#F1F5F9] px-6 py-4 text-sm font-bold text-[#163B65] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl active:translate-y-0"
           >
             Explore AI Advisor
             <MoveUpRight
@@ -413,7 +413,7 @@ export default function HomeDashboard({
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="flex flex-col items-start justify-between gap-5 rounded-2xl border border-[#E7E4D9] bg-[#F6F4ED] p-7 dark:border-neutral-700 dark:bg-neutral-700 sm:flex-row sm:items-center sm:p-9">
+      <section className="flex flex-col items-start justify-between gap-5 rounded-2xl border border-[#F1F5F9] bg-[#FFFFFF] p-7 dark:border-neutral-700 dark:bg-neutral-700 sm:flex-row sm:items-center sm:p-9">
         <div>
           <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-accent-500">
             Keep exploring
