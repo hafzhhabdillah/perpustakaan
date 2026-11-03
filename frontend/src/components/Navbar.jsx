@@ -78,7 +78,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
             className="flex items-center gap-3 shrink-0 group"
           >
             <div className="w-11 h-11 rounded-2xl bg-[#163B65] flex items-center justify-center shadow-lg shadow-[#163B65]/15 group-hover:rotate-[-5deg] transition-transform duration-300">
-              <BookMarked className="w-5 h-5 text-[#F2EBD9]" strokeWidth={2} />
+              <BookMarked className="w-5 h-5 text-[#EFF6FF]" strokeWidth={2} />
             </div>
 
             <div className="text-left">
@@ -150,7 +150,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
                 <button
                   type="button"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-2xl border border-[#DBEAFE] hover:border-[#A9BBA2] bg-white dark:bg-neutral-700 dark:border-neutral-600 transition-all"
+                  className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-2xl border border-[#DBEAFE] hover:border-[#BFDBFE] bg-white dark:bg-neutral-700 dark:border-neutral-600 transition-all"
                 >
                   <div className="w-8 h-8 rounded-xl bg-[#163B65] text-white flex items-center justify-center font-bold text-sm uppercase">
                     {user?.name?.charAt(0) || 'U'}
@@ -195,7 +195,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
               <button
                 type="button"
                 onClick={() => onOpenAuth('login')}
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#163B65] hover:bg-[#245647] text-white text-[13px] font-bold shadow-md shadow-[#163B65]/15 transition-all hover:-translate-y-0.5"
+                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#163B65] hover:bg-[#102B4A] text-white text-[13px] font-bold shadow-md shadow-[#163B65]/15 transition-all hover:-translate-y-0.5"
               >
                 <LogIn className="w-4 h-4" />
                 Masuk
