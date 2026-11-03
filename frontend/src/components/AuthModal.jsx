@@ -72,7 +72,7 @@ export default function AuthModal({ isOpen, onClose, onNotify, defaultMode = 'lo
         </div>
 
         <div className="px-6 pb-7 pt-6 sm:px-9 sm:pb-9">
-          <div className="mb-6 grid grid-cols-2 rounded-xl bg-[#EDF1E9] p-1 dark:bg-neutral-700">
+          <div className="mb-6 grid grid-cols-2 rounded-xl bg-[#EFF6FF] p-1 dark:bg-neutral-700">
             <button type="button" onClick={() => setMode('login')} className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold transition ${mode === 'login' ? 'bg-white text-primary-700 shadow-sm dark:bg-neutral-600 dark:text-white' : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-300'}`}>
               <LogIn className="h-4 w-4" /> Masuk
             </button>
