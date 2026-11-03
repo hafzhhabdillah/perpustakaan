@@ -313,7 +313,7 @@ export default function BookManager({ onSelectBook, onNotify }) {
 
       {/* CREATE / EDIT MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-white dark:bg-neutral-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-100 dark:border-neutral-700 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setModalOpen(false)}
