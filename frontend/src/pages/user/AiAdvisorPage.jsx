@@ -98,19 +98,19 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
   return (
     <div className="space-y-8 pb-16 max-w-5xl mx-auto">
       {/* Page Header */}
-      <div className="bg-gradient-to-br from-violet-900 via-indigo-950 to-slate-900 p-8 sm:p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden border border-violet-800/40">
-        <div className="absolute -right-12 -top-12 w-64 h-64 bg-violet-600/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-gradient-to-br from-primary-900 via-primary-950 to-neutral-900 p-8 sm:p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden border border-primary-800/40">
+        <div className="absolute -right-12 -top-12 w-64 h-64 bg-primary-600/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-semibold backdrop-blur-md border border-violet-400/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-semibold backdrop-blur-md border border-primary-400/30">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Didukung oleh Groq Llama-3.3-70b High-Speed Inference</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight">
               AI Book Advisor & Assistant
             </h2>
-            <p className="text-xs sm:text-sm text-violet-200 max-w-xl">
+            <p className="text-xs sm:text-sm text-primary-200 max-w-xl">
               Konsultasikan minat membaca Anda dan dapatkan rekomendasi cerdas yang langsung terhubung dengan katalog perpustakaan kami.
             </p>
           </div>
@@ -121,8 +121,8 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
               onClick={() => setActiveSubTab('recommend')}
               className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeSubTab === 'recommend'
-                  ? 'bg-white text-slate-900 shadow-md'
-                  : 'text-violet-200 hover:text-white'
+                  ? 'bg-white text-neutral-900 shadow-md'
+                  : 'text-primary-200 hover:text-white'
               }`}
             >
               <Compass className="w-4 h-4" /> Rekomendasi Buku
@@ -131,8 +131,8 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
               onClick={() => setActiveSubTab('chat')}
               className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeSubTab === 'chat'
-                  ? 'bg-white text-slate-900 shadow-md'
-                  : 'text-violet-200 hover:text-white'
+                  ? 'bg-white text-neutral-900 shadow-md'
+                  : 'text-primary-200 hover:text-white'
               }`}
             >
               <MessageSquare className="w-4 h-4" /> Asisten Libraria
@@ -145,8 +145,8 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
       {activeSubTab === 'recommend' && (
         <div className="space-y-8 animate-fade-in">
           {/* Prompt Input Box */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
-            <label className="block text-sm font-bold text-slate-800 flex items-center gap-2">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-neutral-200/80 shadow-xs space-y-4">
+            <label className="block text-sm font-bold text-neutral-800 flex items-center gap-2">
               <Lightbulb className="w-4 h-4 text-amber-500" />
               Ceritakan Buku Apa yang Ingin Anda Baca:
             </label>
@@ -157,13 +157,13 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                 placeholder="Contoh: Saya sedang ingin mempelajari dasar-dasar machine learning dan pemrograman data dengan bahasa Python untuk pemula..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="w-full p-4 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition resize-none"
+                className="w-full p-4 rounded-2xl border border-neutral-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition resize-none"
               />
             </div>
 
             {/* Quick Inspiration Chips */}
             <div>
-              <p className="text-xs font-semibold text-slate-400 mb-2">Inspirasi pencarian:</p>
+              <p className="text-xs font-semibold text-neutral-400 mb-2">Inspirasi pencarian:</p>
               <div className="flex flex-wrap gap-2">
                 {quickPrompts.map((qp, idx) => (
                   <button
@@ -173,7 +173,7 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                       setPrompt(qp);
                       handleGetRecommendation(qp);
                     }}
-                    className="text-xs py-1.5 px-3 rounded-full bg-slate-100 hover:bg-violet-50 hover:text-violet-700 text-slate-600 transition border border-slate-200/60"
+                    className="text-xs py-1.5 px-3 rounded-full bg-neutral-100 hover:bg-primary-50 hover:text-primary-700 text-neutral-600 transition border border-neutral-200/60"
                   >
                     {qp}
                   </button>
@@ -186,7 +186,7 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                 type="button"
                 onClick={() => handleGetRecommendation()}
                 disabled={recomLoading || !prompt.trim()}
-                className="px-6 py-3 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white font-bold text-sm rounded-2xl shadow-lg shadow-violet-200 transition flex items-center gap-2"
+                className="px-6 py-3 bg-primary-600 hover:bg-primary-700 disabled:opacity-50 text-white font-bold text-sm rounded-2xl shadow-lg shadow-primary-200 transition flex items-center gap-2"
               >
                 {recomLoading ? (
                   <>
@@ -203,24 +203,24 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
 
           {/* AI RESULT DISPLAY */}
           {recomResult && (
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-violet-100 shadow-sm space-y-6 animate-fade-in">
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-primary-100 shadow-sm space-y-6 animate-fade-in">
               {/* Summary Header */}
-              <div className="p-5 rounded-2xl bg-violet-50/60 border border-violet-100 space-y-3">
-                <div className="flex items-center gap-2 text-violet-800 font-bold text-sm">
-                  <Sparkles className="w-4 h-4 text-violet-600" /> Analisis Pustakawan AI
+              <div className="p-5 rounded-2xl bg-primary-50/60 border border-primary-100 space-y-3">
+                <div className="flex items-center gap-2 text-primary-800 font-bold text-sm">
+                  <Sparkles className="w-4 h-4 text-primary-600" /> Analisis Pustakawan AI
                 </div>
-                <p className="text-sm text-slate-700 leading-relaxed">
+                <p className="text-sm text-neutral-700 leading-relaxed">
                   {recomResult.summary}
                 </p>
 
                 {/* Topics tags */}
                 {recomResult.topics && recomResult.topics.length > 0 && (
                   <div className="flex flex-wrap items-center gap-1.5 pt-2">
-                    <span className="text-xs font-semibold text-slate-500">Topik Terkait:</span>
+                    <span className="text-xs font-semibold text-neutral-500">Topik Terkait:</span>
                     {recomResult.topics.map((t, idx) => (
                       <span
                         key={idx}
-                        className="text-xs px-2.5 py-0.5 rounded-full bg-white text-violet-700 font-semibold border border-violet-200 shadow-2xs"
+                        className="text-xs px-2.5 py-0.5 rounded-full bg-white text-primary-700 font-semibold border border-primary-200 shadow-2xs"
                       >
                         #{t}
                       </span>
@@ -231,7 +231,7 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
 
               {/* Recommendations Cards List */}
               <div className="space-y-4">
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-bold text-neutral-900">
                   Daftar Buku Rekomendasi ({recomResult.recommendations?.length || 0} buku)
                 </h3>
 
@@ -239,11 +239,11 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                   {recomResult.recommendations?.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-5 rounded-2xl border border-slate-200 bg-white hover:border-violet-300 transition shadow-2xs flex flex-col justify-between space-y-3"
+                      className="p-5 rounded-2xl border border-neutral-200 bg-white hover:border-primary-300 transition shadow-2xs flex flex-col justify-between space-y-3"
                     >
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-violet-600">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
                             Pilihan #{idx + 1}
                           </span>
                           {item.is_in_library && (
@@ -253,12 +253,12 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                           )}
                         </div>
 
-                        <h4 className="font-bold text-slate-900 text-base leading-snug">
+                        <h4 className="font-bold text-neutral-900 text-base leading-snug">
                           {item.title}
                         </h4>
-                        <p className="text-xs font-medium text-slate-500">Oleh: {item.author}</p>
+                        <p className="text-xs font-medium text-neutral-500">Oleh: {item.author}</p>
 
-                        <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <p className="text-xs text-neutral-600 leading-relaxed bg-neutral-50 p-3 rounded-xl border border-neutral-100">
                           {item.reason}
                         </p>
                       </div>
@@ -273,7 +273,7 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                           <BookOpen className="w-3.5 h-3.5" /> Lihat Detail di Koleksi Kami
                         </button>
                       ) : (
-                        <div className="text-[11px] text-slate-400 italic">
+                        <div className="text-[11px] text-neutral-400 italic">
                           (Rekomendasi buku literatur global)
                         </div>
                       )}
@@ -288,9 +288,9 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
 
       {/* SUBTAB 2: AI ASSISTANT CHATBOT */}
       {activeSubTab === 'chat' && (
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs flex flex-col h-[650px] overflow-hidden animate-fade-in">
+        <div className="bg-white rounded-3xl border border-neutral-200/80 shadow-xs flex flex-col h-[650px] overflow-hidden animate-fade-in">
           {/* Chat Messages Scrollable Box */}
-          <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+          <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-neutral-50/50">
             {chatHistory.map((msg, idx) => {
               const isAssistant = msg.role === 'assistant';
               return (
@@ -301,8 +301,8 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                   <div
                     className={`w-9 h-9 rounded-2xl flex items-center justify-center flex-shrink-0 text-white font-bold text-xs shadow-xs ${
                       isAssistant
-                        ? 'bg-gradient-to-tr from-violet-600 to-indigo-600'
-                        : 'bg-slate-900'
+                        ? 'bg-gradient-to-tr from-primary-600 to-primary-600'
+                        : 'bg-neutral-900'
                     }`}
                   >
                     {isAssistant ? <Bot className="w-5 h-5" /> : <User className="w-5 h-5" />}
@@ -311,8 +311,8 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
                   <div
                     className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed whitespace-pre-line shadow-2xs ${
                       isAssistant
-                        ? 'bg-white text-slate-800 border border-slate-200/80'
-                        : 'bg-violet-600 text-white'
+                        ? 'bg-white text-neutral-800 border border-neutral-200/80'
+                        : 'bg-primary-600 text-white'
                     }`}
                   >
                     {msg.content}
@@ -323,10 +323,10 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
 
             {chatLoading && (
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-600 text-white flex items-center justify-center">
+                <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-primary-600 to-primary-600 text-white flex items-center justify-center">
                   <Bot className="w-5 h-5" />
                 </div>
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 text-xs text-slate-500 flex items-center gap-2">
+                <div className="bg-white border border-neutral-200 rounded-2xl p-4 text-xs text-neutral-500 flex items-center gap-2">
                   <span className="animate-spin text-base">⏳</span> Libraria sedang berpikir...
                 </div>
               </div>
@@ -334,19 +334,19 @@ export default function AiAdvisorPage({ onSelectBook, onNotify }) {
           </div>
 
           {/* Chat Input Field */}
-          <form onSubmit={handleSendMessage} className="p-4 border-t border-slate-200 bg-white flex gap-2">
+          <form onSubmit={handleSendMessage} className="p-4 border-t border-neutral-200 bg-white flex gap-2">
             <input
               type="text"
               placeholder="Tanyakan rekomendasi buku, ringkasan, atau tips membaca ke Libraria..."
               value={chatMessage}
               onChange={(e) => setChatMessage(e.target.value)}
               disabled={chatLoading}
-              className="flex-1 px-4 py-3 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition"
+              className="flex-1 px-4 py-3 rounded-2xl border border-neutral-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition"
             />
             <button
               type="submit"
               disabled={chatLoading || !chatMessage.trim()}
-              className="px-6 py-3 bg-violet-600 hover:bg-violet-700 disabled:opacity-40 text-white font-bold text-sm rounded-2xl shadow-md transition flex items-center gap-2"
+              className="px-6 py-3 bg-primary-600 hover:bg-primary-700 disabled:opacity-40 text-white font-bold text-sm rounded-2xl shadow-md transition flex items-center gap-2"
             >
               <Send className="w-4 h-4" /> Kirim
             </button>
