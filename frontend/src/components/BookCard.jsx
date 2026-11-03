@@ -13,7 +13,7 @@ export default function BookCard({
   const outOfStock = Number(book.stock ?? 0) <= 0;
 
   return (
-    <article className="group relative flex flex-col bg-white dark:bg-neutral-700 rounded-[22px] border border-[#DBEAFE] dark:border-neutral-600 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#163B65]/10 hover:border-[#B8CBB1]">
+    <article className="group relative flex flex-col bg-white dark:bg-neutral-700 rounded-[22px] border border-[#DBEAFE] dark:border-neutral-600 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#163B65]/10 hover:border-[#BFDBFE]">
 
       {/* Book cover */}
       <div
@@ -105,7 +105,7 @@ export default function BookCard({
             {book.isbn ? `ISBN ${book.isbn}` : 'ISBN —'}
           </span>
 
-          <span className="flex items-center gap-1 text-xs font-bold text-[#60A5FA] group-hover:text-[#163B65] dark:text-green-300 transition-colors">
+          <span className="flex items-center gap-1 text-xs font-bold text-[#60A5FA] group-hover:text-[#163B65] dark:text-sky-300 transition-colors">
             Detail
             <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
