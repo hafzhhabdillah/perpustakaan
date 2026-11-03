@@ -1,56 +1,48 @@
-/* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
-
+/* Libraria — Modern Blue Design System */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-/* Dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Libraria color system */
 @theme {
-  /* Primary - Forest Green */
-  --color-primary-50: #F5F7F1;
-  --color-primary-100: #E8EEE3;
-  --color-primary-200: #D1DDC9;
-  --color-primary-300: #A9BE9F;
-  --color-primary-400: #789B70;
-  --color-primary-500: #315C46;
-  --color-primary-600: #274C3A;
-  --color-primary-700: #203F32;
-  --color-primary-800: #1B352B;
-  --color-primary-900: #173F35;
+  /* Brand: modern navy + royal blue */
+  --color-primary-50: #EFF6FF;
+  --color-primary-100: #DBEAFE;
+  --color-primary-200: #BFDBFE;
+  --color-primary-300: #93C5FD;
+  --color-primary-400: #60A5FA;
+  --color-primary-500: #2563EB;
+  --color-primary-600: #1D4ED8;
+  --color-primary-700: #163B65;
+  --color-primary-800: #102B4A;
+  --color-primary-900: #0B1F38;
 
-  /* Neutral */
-  --color-neutral-50: #FAFBF8;
-  --color-neutral-100: #F0F1EC;
-  --color-neutral-200: #E3E6DE;
-  --color-neutral-300: #C5CBC0;
-  --color-neutral-400: #929B91;
-  --color-neutral-500: #657064;
-  --color-neutral-600: #414B43;
-  --color-neutral-700: #29332C;
-  --color-neutral-800: #1C261F;
-  --color-neutral-900: #121A15;
+  /* Neutral slate */
+  --color-neutral-50: #F8FAFC;
+  --color-neutral-100: #F1F5F9;
+  --color-neutral-200: #E2E8F0;
+  --color-neutral-300: #CBD5E1;
+  --color-neutral-400: #94A3B8;
+  --color-neutral-500: #64748B;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1E293B;
+  --color-neutral-900: #0F172A;
 
-  /* Accent */
-  --color-accent-500: #A6B98B;
+  --color-accent-500: #60A5FA;
+  --color-brand-50: #EFF6FF;
+  --color-brand-100: #DBEAFE;
+  --color-brand-300: #93C5FD;
+  --color-brand-400: #60A5FA;
+  --color-brand-500: #2563EB;
+  --color-brand-600: #1D4ED8;
+  --color-brand-700: #163B65;
 
-  /* Brand aliases */
-  --color-brand-50: #F5F7F1;
-  --color-brand-100: #E8EEE3;
-  --color-brand-300: #A9BE9F;
-  --color-brand-400: #789B70;
-  --color-brand-500: #315C46;
-  --color-brand-600: #274C3A;
-  --color-brand-700: #203F32;
-
-  /* Typography */
   --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-sans: "Inter", sans-serif;
 }
 
-/* Global styles */
 :root {
   color-scheme: light;
   font-synthesis: none;
@@ -60,101 +52,51 @@
   scroll-behavior: smooth;
 }
 
-:root.dark {
-  color-scheme: dark;
-}
+:root.dark { color-scheme: dark; }
 
-html,
-body,
-#root {
-  min-height: 100%;
-}
+html, body, #root { min-height: 100%; }
 
 body {
   margin: 0;
   min-width: 320px;
-  background: #F5F7F1;
-  color: #29332C;
+  background: #EFF6FF;
+  color: #1E293B;
   font-family: var(--font-body);
-  transition: background-color .25s ease, color .25s ease;
+  transition: background-color .2s ease, color .2s ease;
 }
 
 .dark body {
-  background: #121A15;
-  color: #F0F1EC;
+  background: #0F172A;
+  color: #E2E8F0;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-}
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
 
-button,
-a,
-input,
-textarea,
-select {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-}
-
-::selection {
-  background: rgb(49 92 70 / 22%);
-}
+::selection { background: rgb(96 165 250 / 28%); color: #102B4A; }
 
 :focus-visible {
-  outline: 2px solid #315C46;
+  outline: 2px solid #2563EB;
   outline-offset: 3px;
 }
 
-/* Scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #A9BE9F transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
-}
-
+* { scrollbar-width: thin; scrollbar-color: #BFDBFE transparent; }
+*::-webkit-scrollbar { width: 9px; height: 9px; }
 *::-webkit-scrollbar-thumb {
-  background: #A9BE9F;
+  background: #BFDBFE;
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
+.dark * { scrollbar-color: #334155 transparent; }
+.dark *::-webkit-scrollbar-thumb { background: #334155; background-clip: padding-box; }
 
-.dark * {
-  scrollbar-color: #42665B transparent;
-}
-
-.dark *::-webkit-scrollbar-thumb {
-  background: #42665B;
-  background-clip: padding-box;
-}
-
-/* Animations */
 @media (prefers-reduced-motion: no-preference) {
-  .animate-fade-in {
-    animation: libraria-fade-in .22s ease-out both;
-  }
-
+  .animate-fade-in { animation: libraria-fade-in .18s ease-out both; }
   @keyframes libraria-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(5px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
