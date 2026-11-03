@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -34,12 +35,12 @@ const adminItems = [
 
 export default function Sidebar() {
   const { isAdmin, logout } = useAuth();
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <aside
-      className={`bg-primary-900 text-white transition-width duration-300 flex flex-col h-screen fixed inset-y-0 left-0 z-20 ${
+      className={`bg-primary-700 text-white transition-width duration-300 flex flex-col h-screen fixed inset-y-0 left-0 z-20 ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >
@@ -94,8 +95,8 @@ export default function Sidebar() {
           onClick={toggleTheme}
           className="flex items-center w-full p-2 rounded hover:bg-primary-800 transition-default"
         >
-          <span className="mr-2">🌓</span>
-          {!collapsed && <span>Toggle Theme</span>}
+          <span className="mr-2">{theme === 'dark' ? '☀️' : '🌙'}</span>
+          {!collapsed && <span>{theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}</span>}
         </button>
         <button
           onClick={logout}
