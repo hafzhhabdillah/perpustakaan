@@ -56,17 +56,17 @@ export default function AuthModal({ isOpen, onClose, onNotify, defaultMode = 'lo
     }
   };
 
-  const inputClass = 'w-full rounded-xl border border-neutral-200 bg-[#FBFCF9] py-3 pl-11 pr-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/10 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:placeholder:text-neutral-400 dark:focus:bg-neutral-700';
+  const inputClass = 'w-full rounded-xl border border-neutral-200 bg-[#FFFFFF] py-3 pl-11 pr-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/10 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:placeholder:text-neutral-400 dark:focus:bg-neutral-700';
   const labelClass = 'mb-2 block text-xs font-bold tracking-wide text-neutral-700 dark:text-neutral-200';
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-[#10251E]/65 p-4 backdrop-blur-md animate-fade-in" onMouseDown={(e) => { if (e.target === e.currentTarget && !loading) onClose(); }}>
-      <div className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-white/60 bg-[#FBFCF8] shadow-2xl shadow-black/20 dark:border-neutral-700 dark:bg-neutral-800">
-        <div className="relative overflow-hidden bg-[#173F35] px-7 pb-8 pt-7 text-white sm:px-9">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-[#0F172A]/65 p-4 backdrop-blur-md animate-fade-in" onMouseDown={(e) => { if (e.target === e.currentTarget && !loading) onClose(); }}>
+      <div className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-white/60 bg-[#FFFFFF] shadow-2xl shadow-black/20 dark:border-neutral-700 dark:bg-neutral-800">
+        <div className="relative overflow-hidden bg-[#163B65] px-7 pb-8 pt-7 text-white sm:px-9">
           <div className="pointer-events-none absolute -right-10 -top-16 h-48 w-48 rounded-full border-[24px] border-white/[0.07]" />
           <button type="button" onClick={onClose} disabled={loading} aria-label="Tutup" className="absolute right-5 top-5 z-10 rounded-xl p-2 text-white/70 transition hover:bg-white/10 hover:text-white disabled:opacity-40"><X className="h-5 w-5" /></button>
-          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E7EEDD] text-[#173F35] shadow-lg"><BookOpen className="h-6 w-6" /></div>
-          <p className="relative mt-5 text-[10px] font-bold tracking-[0.22em] text-[#C8D9BD]">LIBRARIA · DIGITAL LIBRARY</p>
+          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[#DBEAFE] text-[#163B65] shadow-lg"><BookOpen className="h-6 w-6" /></div>
+          <p className="relative mt-5 text-[10px] font-bold tracking-[0.22em] text-[#BFDBFE]">LIBRARIA · DIGITAL LIBRARY</p>
           <h2 className="relative mt-2 text-2xl font-extrabold tracking-tight sm:text-[28px]">{mode === 'login' ? 'Senang melihatmu lagi.' : 'Mulai perjalanan membaca.'}</h2>
           <p className="relative mt-2 max-w-sm text-sm leading-6 text-white/70">{mode === 'login' ? 'Masuk untuk melanjutkan eksplorasi dan mengelola koleksi favoritmu.' : 'Buat akun Libraria dan temukan bacaan yang cocok untukmu.'}</p>
         </div>
@@ -104,7 +104,7 @@ export default function AuthModal({ isOpen, onClose, onNotify, defaultMode = 'lo
               </div>
             )}
 
-            <button type="submit" disabled={loading} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#315C46] px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-primary-900/15 transition hover:-translate-y-0.5 hover:bg-[#274C3A] disabled:cursor-not-allowed disabled:opacity-60">
+            <button type="submit" disabled={loading} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-primary-900/15 transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60">
               {loading ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" /> : <>{mode === 'login' ? 'Masuk ke Libraria' : 'Buat akun'} <ArrowRight className="h-4 w-4" /></>}
             </button>
           </form>
