@@ -6,19 +6,19 @@ import {
 } from 'lucide-react';
 
 const statItems = [
-  { key: 'total_books', label: 'Total Buku', icon: BookCopy, tone: 'green' },
-  { key: 'total_categories', label: 'Kategori', icon: Layers, tone: 'sage' },
-  { key: 'total_users', label: 'Pengguna', icon: Users, tone: 'blue' },
-  { key: 'total_favorites', label: 'Favorit', icon: Heart, tone: 'rose' },
-  { key: 'total_stock', label: 'Stok Fisik', icon: Boxes, tone: 'amber' },
+  { key: 'total_books', label: 'Total Buku', icon: BookCopy, tone: 'navy' },
+  { key: 'total_categories', label: 'Kategori', icon: Layers, tone: 'ice' },
+  { key: 'total_users', label: 'Pengguna', icon: Users, tone: 'royal' },
+  { key: 'total_favorites', label: 'Favorit', icon: Heart, tone: 'soft' },
+  { key: 'total_stock', label: 'Stok Fisik', icon: Boxes, tone: 'slate' },
 ];
 
 const toneClasses = {
-  green: 'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200',
-  sage: 'bg-[#DBEAFE] text-[#163B65] dark:bg-[#1E293B] dark:text-[#BFDBFE]',
-  blue: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-  rose: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-  amber: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+  navy: 'bg-[#DBEAFE] text-[#163B65] dark:bg-[#163B65]/40 dark:text-[#BFDBFE]',
+  ice: 'bg-[#EFF6FF] text-[#2563EB] dark:bg-[#1E293B] dark:text-[#93C5FD]',
+  royal: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+  soft: 'bg-[#DBEAFE] text-[#2563EB] dark:bg-[#1E293B] dark:text-[#93C5FD]',
+  slate: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200',
 };
 
 export default function AdminDashboard({ onNavigate, onSelectBook }) {
@@ -136,7 +136,7 @@ export default function AdminDashboard({ onNavigate, onSelectBook }) {
                 <button key={book.id} onClick={() => onSelectBook(book)} className="flex w-full items-center gap-3 rounded-xl py-3 text-left transition hover:bg-primary-50/70 dark:hover:bg-neutral-700/50 sm:px-2">
                   <img src={book.cover_image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=100&q=80'} alt={book.title} className="h-14 w-10 shrink-0 rounded-lg border border-neutral-200 object-cover dark:border-neutral-600" />
                   <span className="min-w-0 flex-1"><span className="block truncate text-sm font-bold text-neutral-900 dark:text-neutral-100">{book.title}</span><span className="mt-1 block truncate text-xs text-neutral-500 dark:text-neutral-400">{book.author} <span className="text-primary-600 dark:text-primary-300">· {book.category?.name || 'Umum'}</span></span></span>
-                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ${book.stock > 0 ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200' : 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'}`}>Stok {book.stock}</span>
+                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ${book.stock > 0 ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'}`}>Stok {book.stock}</span>
                 </button>
               )) : <div className="py-12 text-center"><Library className="mx-auto h-8 w-8 text-neutral-300" /><p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Belum ada buku yang ditambahkan.</p></div>}
           </div>
