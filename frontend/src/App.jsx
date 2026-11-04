@@ -106,7 +106,7 @@ function MainApp() {
   };
 
   const handleNavigate = (tab, params = {}) => {
-    if (tab === 'catalog') {
+    if (tab === 'catalog' || tab === 'admin-catalog') {
       setCatalogFilters({
         search: params.search || '',
         categoryId: params.categoryId || '',
@@ -115,6 +115,20 @@ function MainApp() {
 
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAdminHomeNavigate = (tab, params = {}) => {
+    if (tab === 'catalog') {
+      handleNavigate('admin-catalog', params);
+      return;
+    }
+
+    if (tab === 'ai-advisor') {
+      handleNavigate('admin-ai-advisor');
+      return;
+    }
+
+    handleNavigate('admin-home', params);
   };
 
   const handleToggleFavorite = async (book) => {
@@ -229,7 +243,7 @@ function MainApp() {
               <span className="min-w-0"><strong className="block truncate text-sm">{user?.name || "Administrator"}</strong><small className="text-xs text-blue-100/70">Administrator</small></span>
             </div>
             <button type="button" onClick={toggleTheme} className="mb-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-50/80 transition hover:bg-white/10 hover:text-white">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}{theme === "dark" ? "Mode terang" : "Mode gelap"}</button>
-            <button type="button" onClick={() => { logout(); setActiveTab("home"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>
+            <button type="button" onClick={() => setLogoutConfirmOpen(true)} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>
           </div>
         </aside>
       )}
@@ -325,12 +339,48 @@ function MainApp() {
 
         {/* ADMIN PAGES */}
         {isAdmin && activeTab === 'admin-home' && (
-          <HomeDashboard
-            onSelectBook={handleSelectBook}
-            onToggleFavorite={handleToggleFavorite}
-            onNavigate={handleNavigate}
-            isFavoriteLoading={favoriteLoading}
-          />
+          <section className="space-y-7">
+            <div className="flex flex-col gap-4 rounded-3xl border border-[#DBEAFE] bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-[#1E293B] sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2563EB]">Libraria · Admin workspace</p>
+                <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-[#163B65] dark:text-white sm:text-3xl">Beranda Admin</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#64748B] dark:text-slate-300">Jelajahi koleksi dan fitur utama Libraria dari halaman ini. Pengelolaan perpustakaan tetap tersedia di Dashboard Admin.</p>
+              </div>
+              <button type="button" onClick={() => handleSetActiveTab('admin-dashboard')} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#163B65] px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#102B4A]">
+                <LayoutDashboard className="h-4 w-4" /> Kembali ke Dashboard Admin
+              </button>
+            </div>
+            <HomeDashboard
+              onSelectBook={handleSelectBook}
+              onToggleFavorite={handleToggleFavorite}
+              onNavigate={handleAdminHomeNavigate}
+              isFavoriteLoading={favoriteLoading}
+            />
+          </section>
+        )}
+
+        {isAdmin && activeTab === 'admin-catalog' && (
+          <section className="space-y-5">
+            <button type="button" onClick={() => handleSetActiveTab('admin-home')} className="inline-flex items-center gap-2 rounded-xl border border-[#DBEAFE] bg-white px-4 py-2.5 text-sm font-semibold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-700 dark:bg-[#1E293B] dark:text-blue-200 dark:hover:bg-slate-700">
+              <Home className="h-4 w-4" /> Kembali ke Beranda Admin
+            </button>
+            <BookCatalog
+              initialSearch={catalogFilters.search}
+              initialCategoryId={catalogFilters.categoryId}
+              onSelectBook={handleSelectBook}
+              onToggleFavorite={handleToggleFavorite}
+              isFavoriteLoading={favoriteLoading}
+            />
+          </section>
+        )}
+
+        {isAdmin && activeTab === 'admin-ai-advisor' && (
+          <section className="space-y-5">
+            <button type="button" onClick={() => handleSetActiveTab('admin-home')} className="inline-flex items-center gap-2 rounded-xl border border-[#DBEAFE] bg-white px-4 py-2.5 text-sm font-semibold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-700 dark:bg-[#1E293B] dark:text-blue-200 dark:hover:bg-slate-700">
+              <Home className="h-4 w-4" /> Kembali ke Beranda Admin
+            </button>
+            <AiAdvisorPage onSelectBook={handleSelectBook} onNotify={showToast} />
+          </section>
         )}
 
         {isAdmin && activeTab === 'admin-dashboard' && (
@@ -401,8 +451,8 @@ function MainApp() {
 
       {/* LOGOUT CONFIRMATION */}
       {logoutConfirmOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) setLogoutConfirmOpen(false); }}>
-          <section role="dialog" aria-modal="true" aria-labelledby="logout-dialog-title" className="w-full max-w-md rounded-3xl border border-[#DBEAFE] bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-[#1E293B] sm:p-7">
+        <div className="libraria-modal-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) setLogoutConfirmOpen(false); }}>
+          <section role="dialog" aria-modal="true" aria-labelledby="logout-dialog-title" className="libraria-modal-panel w-full max-w-md rounded-3xl border border-[#DBEAFE] bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-[#1E293B] sm:p-7">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-300"><LogOut className="h-5 w-5" /></div>
             <h2 id="logout-dialog-title" className="mt-5 text-xl font-bold text-[#163B65] dark:text-white">Yakin ingin logout?</h2>
             <p className="mt-2 text-sm leading-6 text-[#64748B] dark:text-slate-300">Kamu akan keluar dari akun Libraria dan kembali ke halaman beranda.</p>
