@@ -138,7 +138,7 @@ function MainApp() {
       {!isAdminArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
 
       {isAdminArea && (
-        <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-y-auto bg-[#163B65] text-white lg:flex">
+        <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
           <div className="flex h-[84px] items-center gap-3 border-b border-white/10 px-7">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#163B65]"><BookMarked className="h-5 w-5" /></span>
             <span><strong className="block text-lg font-extrabold tracking-tight">Libraria</strong><small className="text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-100/70">Admin workspace</small></span>
@@ -243,10 +243,6 @@ function MainApp() {
           <UserManager onNotify={showToast} />
         )}
         </div>
-      </main>
-      </div>
-      </div>
-
       {/* FOOTER */}
       <footer className="border-t border-neutral-100 dark:border-neutral-700 bg-white dark:bg-neutral-700 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -282,6 +278,10 @@ function MainApp() {
           </p>
         </div>
       </footer>
+
+      </main>
+      </div>
+      </div>
 
       {/* BOOK DETAIL MODAL */}
       <BookDetailModal
