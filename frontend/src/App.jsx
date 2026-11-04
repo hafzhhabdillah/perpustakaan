@@ -59,8 +59,10 @@ function MainApp() {
     });
   }, [isAdmin, isAuthenticated]);
   const isAdminArea = isAdmin && activeTab.startsWith('admin-');
-  const isHomePage = !isAdminArea && activeTab === 'home';
-  const isUserArea = !isAdminArea && !isHomePage;
+  // Guests use the public website shell (top navbar) on every public page.
+  // The left sidebar is reserved for authenticated member/admin workspaces.
+  const isPublicArea = !isAdminArea && (!isAuthenticated || activeTab === 'home');
+  const isUserArea = !isAdminArea && !isPublicArea;
   const userNavigation = [
     { id: 'user-dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'home', label: 'Beranda', icon: Home },
@@ -163,7 +165,7 @@ function MainApp() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100">
-      {isHomePage && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
+      {isPublicArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
       <div className="flex min-h-0 flex-1 overflow-hidden">
       {isUserArea && (
         <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
