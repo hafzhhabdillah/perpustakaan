@@ -46,8 +46,8 @@ function NavButton({ id, label, Icon, active, onClick, variant = 'default' }) {
   );
 }
 
-export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
-  const { user, isAuthenticated, isAdmin, logout } = useAuth();
+export default function Navbar({ activeTab, setActiveTab, onOpenAuth, onRequestLogout }) {
+  const { user, isAuthenticated, isAdmin } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -62,8 +62,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }) {
   const handleLogout = () => {
     setDropdownOpen(false);
     setMobileOpen(false);
-    logout();
-    go('home');
+    onRequestLogout?.();
   };
 
   return (
