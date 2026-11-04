@@ -29,7 +29,6 @@ import { useTheme } from './context/ThemeContext';
 function MainApp() {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const isAdminArea = isAdmin && activeTab.startsWith('admin-');
   const adminNavigation = [
     { id: 'admin-dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'admin-books', label: 'Manajemen Buku', icon: BookCopy },
@@ -38,7 +37,8 @@ function MainApp() {
     { id: 'admin-users', label: 'Pengguna', icon: Users },
   ];
 
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : 'home');
+  const isAdminArea = isAdmin && activeTab.startsWith('admin-');
   const [catalogFilters, setCatalogFilters] = useState({
     search: '',
     categoryId: '',
@@ -133,7 +133,8 @@ function MainApp() {
   };
 
   return (
-    <div className={`min-h-screen bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100 ${isAdminArea ? "flex" : "flex flex-col"}`}>
+    <div className="flex min-h-screen flex-col bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100">
+      <div className={isAdminArea ? "flex min-h-screen flex-1" : "flex min-h-0 flex-1 flex-col"}>
       {!isAdminArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
 
       {isAdminArea && (
@@ -241,6 +242,7 @@ function MainApp() {
           <UserManager onNotify={showToast} />
         )}
       </main>
+      </div>
       </div>
 
       {/* FOOTER */}
