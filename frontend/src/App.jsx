@@ -30,6 +30,7 @@ function MainApp() {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const adminNavigation = [
+    { id: 'admin-home', label: 'Beranda', icon: Home },
     { id: 'admin-dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'admin-books', label: 'Manajemen Buku', icon: BookCopy },
     { id: 'admin-categories', label: 'Kategori', icon: Layers },
@@ -81,10 +82,18 @@ function MainApp() {
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
 
   const showToast = useCallback((data) => {
     setToast(data);
   }, []);
+
+  const handleConfirmLogout = async () => {
+    setLogoutConfirmOpen(false);
+    await logout();
+    setActiveTab('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleOpenAuth = (mode = 'login') => {
     setAuthMode(mode);
@@ -165,7 +174,7 @@ function MainApp() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100">
-      {isPublicArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
+      {isPublicArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} onRequestLogout={() => setLogoutConfirmOpen(true)} />}
       <div className="flex min-h-0 flex-1 overflow-hidden">
       {isUserArea && (
         <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
@@ -193,7 +202,7 @@ function MainApp() {
               <button type="button" onClick={() => handleOpenAuth('login')} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-[#163B65] transition hover:bg-blue-50"><LogIn className="h-4 w-4" />Masuk / Daftar</button>
             )}
             <button type="button" onClick={toggleTheme} className="mb-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-50/80 transition hover:bg-white/10 hover:text-white">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}{theme === "dark" ? "Mode terang" : "Mode gelap"}</button>
-            {isAuthenticated && <button type="button" onClick={() => { logout(); setActiveTab("home"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>}
+            {isAuthenticated && <button type="button" onClick={() => setLogoutConfirmOpen(true)} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>}
           </div>
         </aside>
       )}
@@ -315,6 +324,15 @@ function MainApp() {
         )}
 
         {/* ADMIN PAGES */}
+        {isAdmin && activeTab === 'admin-home' && (
+          <HomeDashboard
+            onSelectBook={handleSelectBook}
+            onToggleFavorite={handleToggleFavorite}
+            onNavigate={handleNavigate}
+            isFavoriteLoading={favoriteLoading}
+          />
+        )}
+
         {isAdmin && activeTab === 'admin-dashboard' && (
           <AdminDashboard
             onNavigate={handleNavigate}
@@ -380,6 +398,21 @@ function MainApp() {
       </main>
       </div>
       </div>
+
+      {/* LOGOUT CONFIRMATION */}
+      {logoutConfirmOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) setLogoutConfirmOpen(false); }}>
+          <section role="dialog" aria-modal="true" aria-labelledby="logout-dialog-title" className="w-full max-w-md rounded-3xl border border-[#DBEAFE] bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-[#1E293B] sm:p-7">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-300"><LogOut className="h-5 w-5" /></div>
+            <h2 id="logout-dialog-title" className="mt-5 text-xl font-bold text-[#163B65] dark:text-white">Yakin ingin logout?</h2>
+            <p className="mt-2 text-sm leading-6 text-[#64748B] dark:text-slate-300">Kamu akan keluar dari akun Libraria dan kembali ke halaman beranda.</p>
+            <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <button type="button" onClick={() => setLogoutConfirmOpen(false)} className="rounded-xl border border-[#DBEAFE] px-5 py-3 text-sm font-semibold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">Batal</button>
+              <button type="button" onClick={handleConfirmLogout} className="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700">Ya, Logout</button>
+            </div>
+          </section>
+        </div>
+      )}
 
       {/* BOOK DETAIL MODAL */}
       <BookDetailModal
