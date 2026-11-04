@@ -39,7 +39,8 @@ function MainApp() {
 
   const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : 'home');
   const isAdminArea = isAdmin && activeTab.startsWith('admin-');
-  const isUserArea = !isAdminArea;
+  const isHomePage = !isAdminArea && activeTab === 'home';
+  const isUserArea = !isAdminArea && !isHomePage;
   const userNavigation = [
     { id: 'home', label: 'Beranda', icon: Home },
     { id: 'catalog', label: 'Katalog Buku', icon: BookCopy },
@@ -141,6 +142,7 @@ function MainApp() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100">
+      {isHomePage && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
       <div className="flex min-h-0 flex-1 overflow-hidden">
       {isUserArea && (
         <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
