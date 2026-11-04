@@ -23,7 +23,7 @@ import OpenLibrarySearch from './pages/admin/OpenLibrarySearch';
 import UserManager from './pages/admin/UserManager';
 
 import { favoriteService } from './services/api';
-import { LayoutDashboard, BookCopy, Layers, Globe, Users, BookMarked, LogOut, Moon, Sun } from 'lucide-react';
+import { LayoutDashboard, BookCopy, Layers, Globe, Users, BookMarked, LogOut, Moon, Sun, Home, Sparkles, Heart, LogIn } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 
 function MainApp() {
@@ -39,6 +39,13 @@ function MainApp() {
 
   const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : 'home');
   const isAdminArea = isAdmin && activeTab.startsWith('admin-');
+  const isUserArea = !isAdminArea;
+  const userNavigation = [
+    { id: 'home', label: 'Beranda', icon: Home },
+    { id: 'catalog', label: 'Katalog Buku', icon: BookCopy },
+    { id: 'ai-advisor', label: 'AI Book Advisor', icon: Sparkles },
+    ...(isAuthenticated ? [{ id: 'favorites', label: 'Buku Favorit', icon: Heart }] : []),
+  ];
   const [catalogFilters, setCatalogFilters] = useState({
     search: '',
     categoryId: '',
@@ -134,8 +141,37 @@ function MainApp() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100">
-      <div className={isAdminArea ? "flex min-h-0 flex-1 overflow-hidden" : "flex min-h-0 flex-1 flex-col overflow-hidden"}>
-      {!isAdminArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+      {isUserArea && (
+        <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
+          <div className="flex h-[84px] items-center gap-3 border-b border-white/10 px-7">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#163B65]"><BookMarked className="h-5 w-5" /></span>
+            <span><strong className="block text-lg font-extrabold tracking-tight">Libraria</strong><small className="text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-100/70">Digital Library</small></span>
+          </div>
+          <div className="px-5 pt-7">
+            <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-100/50">Menu Utama</p>
+            <nav className="space-y-1.5">
+              {userNavigation.map(({ id, label, icon: Icon }) => (
+                <button key={id} type="button" onClick={() => handleSetActiveTab(id)} className={"flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors " + (activeTab === id ? "bg-white text-[#163B65]" : "text-blue-50/80 hover:bg-white/10 hover:text-white")}>
+                  <Icon className="h-[18px] w-[18px]" />{label}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="mt-auto border-t border-white/10 p-5">
+            {isAuthenticated ? (
+              <div className="mb-4 flex items-center gap-3 rounded-xl bg-white/10 p-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#DBEAFE] text-sm font-bold text-[#163B65]">{user?.name?.charAt(0)?.toUpperCase() || "U"}</span>
+                <span className="min-w-0"><strong className="block truncate text-sm">{user?.name || "Pengguna"}</strong><small className="text-xs text-blue-100/70">Anggota Libraria</small></span>
+              </div>
+            ) : (
+              <button type="button" onClick={() => handleOpenAuth('login')} className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-[#163B65] transition hover:bg-blue-50"><LogIn className="h-4 w-4" />Masuk / Daftar</button>
+            )}
+            <button type="button" onClick={toggleTheme} className="mb-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-50/80 transition hover:bg-white/10 hover:text-white">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}{theme === "dark" ? "Mode terang" : "Mode gelap"}</button>
+            {isAuthenticated && <button type="button" onClick={() => { logout(); setActiveTab("home"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>}
+          </div>
+        </aside>
+      )}
 
       {isAdminArea && (
         <aside className="hidden h-full w-[264px] shrink-0 flex-col overflow-hidden bg-[#163B65] text-white lg:flex">
@@ -164,12 +200,23 @@ function MainApp() {
         </aside>
       )}
 
-      <div className={isAdminArea ? "flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden" : "flex min-h-0 flex-1 flex-col overflow-hidden"}>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        {isUserArea && (
+          <header className="relative z-30 flex min-h-[84px] shrink-0 items-center justify-between border-b border-[#DBEAFE] bg-white/95 px-5 backdrop-blur md:px-9 dark:border-slate-700 dark:bg-[#1E293B]">
+            <div><p className="text-xs font-medium text-[#64748B] dark:text-slate-400">Libraria / Digital Library</p><h1 className="mt-1 text-xl font-bold text-[#163B65] dark:text-white">{userNavigation.find(item => item.id === activeTab)?.label || "Beranda"}</h1></div>
+            <div className="flex items-center gap-3"><span className="hidden text-sm font-semibold text-slate-600 dark:text-slate-200 sm:block">{user?.name || "Selamat datang"}</span><button type="button" onClick={toggleTheme} className="inline-flex items-center gap-2 rounded-xl border border-[#DBEAFE] px-3 py-2 text-xs font-bold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-600 dark:text-blue-200 dark:hover:bg-slate-700">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}<span>{theme === "dark" ? "Mode terang" : "Mode gelap"}</span></button></div>
+          </header>
+        )}
         {isAdminArea && (
           <header className="relative z-30 flex min-h-[84px] shrink-0 items-center justify-between border-b border-[#DBEAFE] bg-white/95 px-5 backdrop-blur md:px-9 dark:border-slate-700 dark:bg-[#1E293B]">
             <div><p className="text-xs font-medium text-[#64748B] dark:text-slate-400">Libraria / Administrator</p><h1 className="mt-1 text-xl font-bold text-[#163B65] dark:text-white">{adminNavigation.find(item => item.id === activeTab)?.label || "Dashboard"}</h1></div>
             <div className="flex items-center gap-3"><span className="hidden text-sm font-semibold text-slate-600 dark:text-slate-200 sm:block">{user?.name || "Administrator"}</span><button type="button" onClick={toggleTheme} className="inline-flex items-center gap-2 rounded-xl border border-[#DBEAFE] px-3 py-2 text-xs font-bold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-600 dark:text-blue-200 dark:hover:bg-slate-700">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}<span>{theme === "dark" ? "Mode terang" : "Mode gelap"}</span></button></div>
           </header>
+        )}
+        {isUserArea && (
+          <nav className="flex shrink-0 gap-2 overflow-x-auto border-b border-[#DBEAFE] bg-white px-4 py-3 lg:hidden dark:border-slate-700 dark:bg-[#1E293B]">
+            {userNavigation.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => handleSetActiveTab(id)} className={"inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold " + (activeTab === id ? "bg-[#163B65] text-white" : "bg-[#EFF6FF] text-[#163B65] dark:bg-slate-700 dark:text-slate-200")}><Icon className="h-4 w-4" />{label}</button>)}
+          </nav>
         )}
         {isAdminArea && (
           <nav className="flex shrink-0 gap-2 overflow-x-auto border-b border-[#DBEAFE] bg-white px-4 py-3 lg:hidden dark:border-slate-700 dark:bg-[#1E293B]">
