@@ -1,5 +1,5 @@
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -37,11 +37,16 @@ function MainApp() {
     { id: 'admin-users', label: 'Pengguna', icon: Users },
   ];
 
-  const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : 'home');
+  const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : (isAuthenticated ? 'user-dashboard' : 'home'));
+  useEffect(() => {
+    if (isAdmin) setActiveTab('admin-dashboard');
+    else if (isAuthenticated) setActiveTab(current => current === 'home' ? 'user-dashboard' : current);
+  }, [isAdmin, isAuthenticated]);
   const isAdminArea = isAdmin && activeTab.startsWith('admin-');
   const isHomePage = !isAdminArea && activeTab === 'home';
   const isUserArea = !isAdminArea && !isHomePage;
   const userNavigation = [
+    { id: 'user-dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'home', label: 'Beranda', icon: Home },
     { id: 'catalog', label: 'Katalog Buku', icon: BookCopy },
     { id: 'ai-advisor', label: 'AI Book Advisor', icon: Sparkles },
@@ -229,7 +234,33 @@ function MainApp() {
       <main className={isAdminArea ? "libraria-scroll-area min-h-0 w-full flex-1 overflow-y-auto overscroll-contain px-4 py-7 sm:px-6 lg:px-9" : "libraria-scroll-area mx-auto min-h-0 w-full max-w-7xl flex-1 overflow-y-auto overscroll-contain px-4 pt-8 pb-16 sm:px-6 lg:px-8"}>
 
         <div key={activeTab} className="libraria-page-enter">
-        {/* USER PAGES */}
+
+        {/* SIGNED-IN USER DASHBOARD */}
+        {activeTab === 'user-dashboard' && (
+          <section className="space-y-8">
+            <div className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-[#DBEAFE] dark:bg-[#1E293B] dark:ring-slate-700 sm:p-10">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2563EB]">Ruang anggota</p>
+              <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-[#163B65] dark:text-white">Halo, {user?.name || 'Pengguna'}!</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#64748B] dark:text-slate-300">Selamat datang di dashboard Libraria. Lanjutkan menjelajahi koleksi, simpan buku favorit, atau temukan bacaan baru.</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {[{title:'Jelajahi Katalog',description:'Cari buku berdasarkan judul, penulis, atau kategori.',icon:BookCopy,tab:'catalog',action:'Buka katalog'},{title:'Buku Favorit',description:'Lihat kembali buku yang kamu simpan.',icon:Heart,tab:'favorites',action:'Lihat favorit'},{title:'AI Book Advisor',description:'Temukan rekomendasi bacaan sesuai minatmu.',icon:Sparkles,tab:'ai-advisor',action:'Coba AI Advisor'}].map(({title,description,icon:Icon,tab,action}) => (
+                <button key={tab} type="button" onClick={() => handleSetActiveTab(tab)} className="group rounded-2xl border border-[#DBEAFE] bg-white p-6 text-left transition duration-300 hover:-translate-y-1 hover:border-[#93C5FD] hover:shadow-lg hover:shadow-blue-900/5 dark:border-slate-700 dark:bg-[#1E293B]">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#EFF6FF] text-[#2563EB] transition group-hover:bg-[#163B65] group-hover:text-white dark:bg-slate-700"><Icon className="h-5 w-5" /></span>
+                  <h3 className="mt-5 font-bold text-[#163B65] dark:text-white">{title}</h3>
+                  <p className="mt-2 min-h-10 text-sm leading-6 text-[#64748B] dark:text-slate-300">{description}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB]">{action} →</span>
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-[#163B65] p-6 text-white sm:p-8">
+              <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">Masih ingin menjelajah?</p><h3 className="mt-2 text-xl font-bold">Temukan bacaan berikutnya.</h3></div>
+              <button type="button" onClick={() => handleSetActiveTab('home')} className="rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#163B65] transition hover:bg-blue-50">Kunjungi halaman utama</button>
+            </div>
+          </section>
+        )}
+
+        {/* PUBLIC HOMEPAGE */}
         {activeTab === 'home' && (
           <HomeDashboard
             onSelectBook={handleSelectBook}
