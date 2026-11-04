@@ -79,18 +79,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    try {
-      if (token) {
-        await authService.logout();
-      }
-    } catch {
-      // Ignore network error on logout
-    } finally {
-      setUser(null);
-      setToken(null);
-      localStorage.removeItem('library_token');
-      localStorage.removeItem('library_user');
-    }
+    // Clear the local session immediately so the UI switches without a page refresh.
+    const logoutRequest = token
+      ? authService.logout().catch(() => null)
+      : Promise.resolve(null);
+
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('library_token');
+    localStorage.removeItem('library_user');
+
+    await logoutRequest;
   };
 
   const updateProfile = async (data) => {
