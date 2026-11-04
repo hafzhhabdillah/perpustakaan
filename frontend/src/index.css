@@ -100,3 +100,112 @@ button:disabled { cursor: not-allowed; }
     to { opacity: 1; transform: translateY(0); }
   }
 }
+
+
+/* -------------------------------------------------------
+   Libraria motion system
+   Subtle, consistent motion for pages and interactions.
+-------------------------------------------------------- */
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-slow: 420ms;
+  --motion-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Page transitions: new page content enters softly when tabs change. */
+main > * {
+  animation: libraria-page-enter var(--motion-slow) var(--motion-ease) both;
+}
+
+@keyframes libraria-page-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Admin workspace entrance. */
+aside.hidden.lg\\:flex {
+  animation: libraria-sidebar-enter 360ms var(--motion-ease) both;
+}
+
+@keyframes libraria-sidebar-enter {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Cards: light staggered entrance without large movement. */
+main article {
+  animation: libraria-card-enter 420ms var(--motion-ease) both;
+}
+
+main article:nth-of-type(2) { animation-delay: 35ms; }
+main article:nth-of-type(3) { animation-delay: 70ms; }
+main article:nth-of-type(4) { animation-delay: 105ms; }
+main article:nth-of-type(5) { animation-delay: 140ms; }
+
+@keyframes libraria-card-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Consistent interaction feedback. */
+button, a, input, textarea, select {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--motion-fast);
+  transition-timing-function: var(--motion-ease);
+}
+
+button:active:not(:disabled) {
+  transform: scale(.985);
+}
+
+button:disabled {
+  transform: none;
+}
+
+/* Reusable card and book-cover hover treatment. */
+main article,
+main [class*="rounded-2xl"][class*="bg-white"],
+main [class*="rounded-3xl"][class*="bg-white"] {
+  transition:
+    background-color var(--motion-base) var(--motion-ease),
+    border-color var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease);
+}
+
+main article:hover {
+  border-color: #BFDBFE;
+}
+
+main img {
+  transition: transform 500ms var(--motion-ease);
+}
+
+/* Inputs receive a clear but calm focus response. */
+input:focus, textarea:focus, select:focus {
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease);
+}
+
+/* Modal and toast entrances. */
+.fixed.inset-0 > div {
+  animation: libraria-modal-enter 240ms var(--motion-ease) both;
+}
+
+@keyframes libraria-modal-enter {
+  from { opacity: 0; transform: translateY(8px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Respect accessibility preferences and avoid motion on request. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
