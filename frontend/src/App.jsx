@@ -39,8 +39,24 @@ function MainApp() {
 
   const [activeTab, setActiveTab] = useState(() => isAdmin ? 'admin-dashboard' : (isAuthenticated ? 'user-dashboard' : 'home'));
   useEffect(() => {
-    if (isAdmin) setActiveTab('admin-dashboard');
-    else if (isAuthenticated) setActiveTab(current => current === 'home' ? 'user-dashboard' : current);
+    if (isAdmin) {
+      setActiveTab((current) =>
+        current.startsWith('admin-') ? current : 'admin-dashboard'
+      );
+      return;
+    }
+
+    setActiveTab((current) => {
+      if (current.startsWith('admin-')) {
+        return isAuthenticated ? 'user-dashboard' : 'home';
+      }
+
+      if (current === 'home' && isAuthenticated) {
+        return 'user-dashboard';
+      }
+
+      return current;
+    });
   }, [isAdmin, isAuthenticated]);
   const isAdminArea = isAdmin && activeTab.startsWith('admin-');
   const isHomePage = !isAdminArea && activeTab === 'home';
