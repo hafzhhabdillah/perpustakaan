@@ -23,9 +23,20 @@ import OpenLibrarySearch from './pages/admin/OpenLibrarySearch';
 import UserManager from './pages/admin/UserManager';
 
 import { favoriteService } from './services/api';
+import { LayoutDashboard, BookCopy, Layers, Globe, Users, BookMarked, LogOut, Moon, Sun } from 'lucide-react';
+import { useTheme } from './context/ThemeContext';
 
 function MainApp() {
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const isAdminArea = isAdmin && activeTab.startsWith('admin-');
+  const adminNavigation = [
+    { id: 'admin-dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'admin-books', label: 'Manajemen Buku', icon: BookCopy },
+    { id: 'admin-categories', label: 'Kategori', icon: Layers },
+    { id: 'admin-open-library', label: 'Open Library', icon: Globe },
+    { id: 'admin-users', label: 'Pengguna', icon: Users },
+  ];
 
   const [activeTab, setActiveTab] = useState('home');
   const [catalogFilters, setCatalogFilters] = useState({
@@ -122,14 +133,50 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-50 text-neutral-800 transition-colors duration-300 dark:bg-neutral-900 dark:text-neutral-100 flex flex-col">
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={handleSetActiveTab}
-        onOpenAuth={handleOpenAuth}
-      />
+    <div className={`min-h-screen bg-[#EFF6FF] text-[#1E293B] transition-colors duration-200 dark:bg-[#0F172A] dark:text-slate-100 ${isAdminArea ? "flex" : "flex flex-col"}`}>
+      {!isAdminArea && <Navbar activeTab={activeTab} setActiveTab={handleSetActiveTab} onOpenAuth={handleOpenAuth} />}
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+      {isAdminArea && (
+        <aside className="hidden lg:flex w-[264px] shrink-0 flex-col bg-[#163B65] text-white">
+          <div className="flex h-[84px] items-center gap-3 border-b border-white/10 px-7">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#163B65]"><BookMarked className="h-5 w-5" /></span>
+            <span><strong className="block text-lg font-extrabold tracking-tight">Libraria</strong><small className="text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-100/70">Admin workspace</small></span>
+          </div>
+          <div className="px-5 pt-7">
+            <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-100/50">Workspace</p>
+            <nav className="space-y-1.5">
+              {adminNavigation.map(({ id, label, icon: Icon }) => (
+                <button key={id} type="button" onClick={() => handleSetActiveTab(id)} className={"flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors " + (activeTab === id ? "bg-white text-[#163B65]" : "text-blue-50/80 hover:bg-white/10 hover:text-white")}>
+                  <Icon className="h-[18px] w-[18px]" />{label}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="mt-auto border-t border-white/10 p-5">
+            <div className="mb-4 flex items-center gap-3 rounded-xl bg-white/10 p-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#DBEAFE] text-sm font-bold text-[#163B65]">{user?.name?.charAt(0)?.toUpperCase() || "A"}</span>
+              <span className="min-w-0"><strong className="block truncate text-sm">{user?.name || "Administrator"}</strong><small className="text-xs text-blue-100/70">Administrator</small></span>
+            </div>
+            <button type="button" onClick={toggleTheme} className="mb-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-50/80 transition hover:bg-white/10 hover:text-white">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}{theme === "dark" ? "Mode terang" : "Mode gelap"}</button>
+            <button type="button" onClick={() => { logout(); setActiveTab("home"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-blue-100/80 transition hover:bg-white/10 hover:text-white"><LogOut className="h-4 w-4" />Keluar</button>
+          </div>
+        </aside>
+      )}
+
+      <div className={isAdminArea ? "min-w-0 flex-1" : "flex min-h-0 flex-1 flex-col"}>
+        {isAdminArea && (
+          <header className="sticky top-0 z-30 flex min-h-[84px] items-center justify-between border-b border-[#DBEAFE] bg-white/95 px-5 backdrop-blur md:px-9 dark:border-slate-700 dark:bg-[#1E293B]">
+            <div><p className="text-xs font-medium text-[#64748B] dark:text-slate-400">Libraria / Administrator</p><h1 className="mt-1 text-xl font-bold text-[#163B65] dark:text-white">{adminNavigation.find(item => item.id === activeTab)?.label || "Dashboard"}</h1></div>
+            <div className="flex items-center gap-3"><span className="hidden text-sm font-semibold text-slate-600 dark:text-slate-200 sm:block">{user?.name || "Administrator"}</span><button type="button" onClick={toggleTheme} className="inline-flex items-center gap-2 rounded-xl border border-[#DBEAFE] px-3 py-2 text-xs font-bold text-[#163B65] transition hover:bg-[#EFF6FF] dark:border-slate-600 dark:text-blue-200 dark:hover:bg-slate-700">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}<span>{theme === "dark" ? "Mode terang" : "Mode gelap"}</span></button></div>
+          </header>
+        )}
+        {isAdminArea && (
+          <nav className="flex gap-2 overflow-x-auto border-b border-[#DBEAFE] bg-white px-4 py-3 lg:hidden dark:border-slate-700 dark:bg-[#1E293B]">
+            {adminNavigation.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => handleSetActiveTab(id)} className={"inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold " + (activeTab === id ? "bg-[#163B65] text-white" : "bg-[#EFF6FF] text-[#163B65] dark:bg-slate-700 dark:text-slate-200")}><Icon className="h-4 w-4" />{label}</button>)}
+          </nav>
+        )}
+
+      <main className={isAdminArea ? "mx-auto w-full max-w-[1600px] flex-1 px-4 py-7 sm:px-6 lg:px-9" : "mx-auto w-full max-w-7xl flex-1 px-4 pt-8 pb-16 sm:px-6 lg:px-8"}>
 
         {/* USER PAGES */}
         {activeTab === 'home' && (
@@ -194,6 +241,7 @@ function MainApp() {
           <UserManager onNotify={showToast} />
         )}
       </main>
+      </div>
 
       {/* FOOTER */}
       <footer className="border-t border-neutral-100 dark:border-neutral-700 bg-white dark:bg-neutral-700 py-6">
