@@ -102,109 +102,98 @@ button:disabled { cursor: not-allowed; }
 }
 
 
-/* -------------------------------------------------------
-   Libraria motion system
-   Subtle, consistent motion for pages and interactions.
--------------------------------------------------------- */
+
+
+/* Libraria: viewport shell + consistent page motion */
 :root {
-  --motion-fast: 160ms;
-  --motion-base: 240ms;
-  --motion-slow: 420ms;
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-page: 360ms;
   --motion-ease: cubic-bezier(.2, .7, .2, 1);
 }
 
-/* Page transitions: new page content enters softly when tabs change. */
-main > * {
-  animation: libraria-page-enter var(--motion-slow) var(--motion-ease) both;
+/* The app shell stays still; only the content pane scrolls. */
+.libraria-scroll-area {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Apply entrance motion to every screen when the active page changes. */
+.libraria-page-enter {
+  min-height: 100%;
+  animation: libraria-page-enter var(--motion-page) var(--motion-ease) both;
 }
 
 @keyframes libraria-page-enter {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translate3d(0, 9px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Gentle stagger for direct content blocks and dashboard cards. */
+.libraria-page-enter > section,
+.libraria-page-enter > article,
+.libraria-page-enter > div {
+  animation: libraria-content-enter 380ms var(--motion-ease) both;
+}
+.libraria-page-enter > :nth-child(2) { animation-delay: 35ms; }
+.libraria-page-enter > :nth-child(3) { animation-delay: 70ms; }
+.libraria-page-enter > :nth-child(4) { animation-delay: 105ms; }
+.libraria-page-enter > :nth-child(5) { animation-delay: 140ms; }
+
+@keyframes libraria-content-enter {
+  from { opacity: 0; transform: translateY(7px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Admin workspace entrance. */
-aside.hidden.lg\\:flex {
-  animation: libraria-sidebar-enter 360ms var(--motion-ease) both;
-}
-
-@keyframes libraria-sidebar-enter {
-  from { opacity: 0; transform: translateX(-12px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-/* Cards: light staggered entrance without large movement. */
-main article {
-  animation: libraria-card-enter 420ms var(--motion-ease) both;
-}
-
-main article:nth-of-type(2) { animation-delay: 35ms; }
-main article:nth-of-type(3) { animation-delay: 70ms; }
-main article:nth-of-type(4) { animation-delay: 105ms; }
-main article:nth-of-type(5) { animation-delay: 140ms; }
-
-@keyframes libraria-card-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Consistent interaction feedback. */
+/* Consistent small feedback across controls, links, cards and book covers. */
 button, a, input, textarea, select {
-  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
-  transition-duration: var(--motion-fast);
-  transition-timing-function: var(--motion-ease);
-}
-
-button:active:not(:disabled) {
-  transform: scale(.985);
-}
-
-button:disabled {
-  transform: none;
-}
-
-/* Reusable card and book-cover hover treatment. */
-main article,
-main [class*="rounded-2xl"][class*="bg-white"],
-main [class*="rounded-3xl"][class*="bg-white"] {
+  -webkit-tap-highlight-color: transparent;
   transition:
-    background-color var(--motion-base) var(--motion-ease),
-    border-color var(--motion-base) var(--motion-ease),
-    box-shadow var(--motion-base) var(--motion-ease),
-    transform var(--motion-base) var(--motion-ease);
-}
-
-main article:hover {
-  border-color: #BFDBFE;
-}
-
-main img {
-  transition: transform 500ms var(--motion-ease);
-}
-
-/* Inputs receive a clear but calm focus response. */
-input:focus, textarea:focus, select:focus {
-  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease),
     border-color var(--motion-fast) var(--motion-ease),
     box-shadow var(--motion-fast) var(--motion-ease),
-    background-color var(--motion-fast) var(--motion-ease);
+    transform var(--motion-fast) var(--motion-ease),
+    opacity var(--motion-fast) var(--motion-ease);
+}
+button:active:not(:disabled) { transform: scale(.985); }
+button:disabled { transform: none; }
+
+.libraria-page-enter article,
+.libraria-page-enter [class*="rounded-2xl"],
+.libraria-page-enter [class*="rounded-3xl"] {
+  transition:
+    border-color var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease),
+    background-color var(--motion-base) var(--motion-ease);
+}
+.libraria-page-enter article:hover { border-color: #BFDBFE; }
+.libraria-page-enter img {
+  transition: transform 420ms var(--motion-ease);
 }
 
-/* Modal and toast entrances. */
+/* Focus states remain visible and calm. */
+input:focus, textarea:focus, select:focus {
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
+}
+
+/* Dialogs and overlays. */
 .fixed.inset-0 > div {
-  animation: libraria-modal-enter 240ms var(--motion-ease) both;
+  animation: libraria-dialog-enter 220ms var(--motion-ease) both;
 }
-
-@keyframes libraria-modal-enter {
-  from { opacity: 0; transform: translateY(8px) scale(.99); }
+@keyframes libraria-dialog-enter {
+  from { opacity: 0; transform: translateY(7px) scale(.99); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Respect accessibility preferences and avoid motion on request. */
+/* Respect operating-system reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
     animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
